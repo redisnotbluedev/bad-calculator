@@ -8,14 +8,53 @@ html, body, #background {
 }
 
 main {
+	display: flex;
+	overflow-x: hidden;
+	scroll-snap-type: x mandatory;
+	box-sizing: border-box;
 	position: absolute;
-	inset: 10vmin;
-	border-radius: 2rem;
-	background: rgba(0, 0, 0, 0.8);
-	border: 1px solid rgba(255, 255, 255, 0.1);
+	inset: 0;
+
+	& > * {
+		flex: 0 0 calc(100vw - 20vmin);
+		margin: 10vmin;
+		height: calc(100vh - 20vmin);
+		box-sizing: border-box;
+		scroll-snap-align: center;
+		scroll-snap-stop: always;
+		border-radius: 2rem;
+		background: rgba(0, 0, 0, 0.8);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		padding: 2rem;
+	}
+
+	& ~ button {
+		position: absolute;
+		top: 45vh;
+		bottom: 45vh;
+		border-radius: 1rem;
+		cursor: pointer;
+		background: rgba(0, 0, 0, 0.8);
+		color: white;
+		border: 1px solid rgba(255, 255, 255, 0.1);
+
+		&.left {
+			left: 0;
+			border-top-left-radius: 0;
+			border-bottom-left-radius: 0;
+		}
+
+		&.right {
+			right: 0;
+			border-top-right-radius: 0;
+			border-bottom-right-radius: 0;
+		}
+	}
+}
+
+.calculator {
 	display: flex;
 	flex-direction: column;
-	padding: 2rem;
 	gap: 2rem;
 
 	& > .screen {
@@ -32,14 +71,16 @@ main {
 	& > .buttons {
 		flex: 1;
 		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 		gap: 1rem;
 
 		& > button {
 			background: #A2BBCF;
-			border: none;
+			border: 5px solid #333;
 			border-radius: 0.5rem;
 			cursor: pointer;
 			font-size: 50px;
+			transition: transform 0.5s ease-in-out;
 
 			&:hover {
 				background: #D1E3F0;

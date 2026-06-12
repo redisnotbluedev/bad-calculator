@@ -8,16 +8,23 @@
 	</head>
 	<body>
 		<canvas id="background"></canvas>
-		<main class="calculator">
-			<p id="screen" class="screen"></p>
-			<div id="buttons" class="buttons">
-				<button data-input="1">1</button>
-				<button data-input="\sqrt{">√</button>
-				<button data-input="+">+</button>
-				<button data-special="submit">=</button>
+		<main id="screens">
+			<div class="calculator">
+				<p id="screen" class="screen"></p>
+				<div id="buttons" class="buttons">
+					<button data-input="1">1</button>
+					<button data-input="+">+</button>
+					<button data-special="submit">=</button>
+					<button data-special="clear">AC</button>
+				</div>
 			</div>
+			<div class="thatOtherthing"></div>
 		</main>
 
+		<button class="left">←</button>
+		<button class="right">→</button>
+
+		<script src="/screens.js" type="module"></script>
 		<script src="/script.js" type="module"></script>
 	</body>
 </html>
