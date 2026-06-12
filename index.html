@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="/style.css">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.17.0/dist/katex.min.css">
+		<script defer src="/katex.js"></script>
+	</head>
+	<body>
+		<canvas id="background"></canvas>
+		<main class="calculator">
+			<p id="screen" class="screen"></p>
+			<div id="buttons" class="buttons">
+				<button data-input="1">1</button>
+				<button data-input="\sqrt{">√</button>
+				<button data-input="+">+</button>
+				<button data-special="submit">=</button>
+			</div>
+		</main>
+
+		<script src="/script.js" type="module"></script>
+	</body>
+</html>
