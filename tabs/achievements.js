@@ -44,5 +44,16 @@ listen(() => {
 });
 
 function renderAchievements() {
-
+	achievements.innerHTML = "";
+	Object.entries(ACHIEVEMENTS).forEach(([id, data]) => {
+		const achievement = document.createElement("div");
+		const owned = state.achievements.includes(id);
+		const hidden = data.hidden || false;
+		const locked = !owned && hidden
+		if (hidden) achievement.className = "purple";
+		achievement.innerHTML = `<img src="${owned ? "/trophy.jpg" : "/locked.jpg"}"><div><img src="${owned ? "/trophy.jpg" : "/locked.jpg"}"><hgroup><h1>${locked ? "???" : data.title}</h1><p>${locked ? "Hidden achievement" : data.description}</p></hgroup></div>`;
+		achievements.appendChild(achievement);
+	})
 }
+
+renderAchievements()

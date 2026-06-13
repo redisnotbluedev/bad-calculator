@@ -81,7 +81,7 @@ buttons.addEventListener("click", e => {
 			state.calculations += 1;
 			expression = ce.parse(finishExpression()).latex;
 			if (expression.includes("\\error")) {
-				expression = "\\mbox{Error}";
+				expression = "Error";
 				state.calculationFails += 1;
 			}
 			katex.render(expression, display, { throwOnError: false });

@@ -55,4 +55,4 @@ screens.addEventListener("scrollend", () => {
 	}
 });
 
-screens.scrollTo({ left: 0 });
+// screens.scrollTo({ left: 0 });
