@@ -34,7 +34,7 @@ function renderShop() {
 			const entry = document.createElement("div");
 			const button = document.createElement("button");
 			const price = { dummy: "$", money: `<img src="/coin.jpg">` }[data.cost.unit] + data.cost.value;
-			const canBuy = data.cost.unit === "money" && state.money >= data.cost.value && !(state.owned.includes(`${category}.${id}`) && data.unique);
+			const canBuy = data.cost.unit === "money" && state.money >= data.cost.value && !(state.owned.includes(`shop.${category}.${id}`) && data.unique);
 
 			if (!canBuy) entry.className = "red";
 			entry.innerHTML = `<h2>${data.title}</h2><p>${data.description}</p>`;
@@ -43,7 +43,7 @@ function renderShop() {
 			button.addEventListener("click", () => {
 				if (canBuy) {
 					state.money -= data.cost.value;
-					state.owned.push(`${category}.${id}`);
+					state.owned.push(`shop.${category}.${id}`);
 					dispatchStateSetter(data.value, state);
 				}
 			});

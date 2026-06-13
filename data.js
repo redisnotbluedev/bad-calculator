@@ -194,7 +194,6 @@ export const SHOP = {
 	}
 }
 
-
 export const WHEEL = [
 	{
 		name: "25 MathBux",
@@ -257,3 +256,19 @@ export const WHEEL = [
 		value: { type: "add", path: "gamble.lootbox", value: "legendary" }
 	}
 ];
+
+export const LOOTBOXES = {
+	rare: {
+		mathbux300: { name: "300 MathBux", value: { type: "add", path: "money", value: 300 } },
+		mathbux500: { name: "500 MathBux", value: { type: "add", path: "money", value: 500 } },
+		button0: { name: "Unlock 0", value: { type: "push", path: "buttons", value: "0" }, unique: true },
+		button4: { name: "Unlock 4", value: { type: "push", path: "buttons", value: "4" }, unique: true },
+		button5: { name: "Unlock 5", value: { type: "push", path: "buttons", value: "5" }, unique: true },
+	},
+	legendary: {
+		mathbux1500: { name: "1500 MathBux", value: { type: "add", path: "money", value: 1500 } },
+		button6: { name: "Unlock 6", value: { type: "push", path: "buttons", value: "6" }, unique: true },
+		button7: { name: "Unlock 7", value: { type: "push", path: "buttons", value: "7" }, unique: true },
+		decimalPoint: { name: "Unlock Decimal Point", value: { type: "push", path: "buttons", value: "." }, unique: true },
+	}
+}

@@ -1,7 +1,7 @@
-import { WHEEL } from "/data.js";
+import { WHEEL, LOOTBOXES } from "/data.js";
 import { state, listen } from "/state.js";
 import { moveTo } from "./tabs.js";
-import { dispatchStateSetter } from "/utils.js";
+import { dispatchStateSetter, toTitleCase } from "/utils.js";
 
 const wheel = document.getElementById("wheel");
 const spinButton = document.getElementById("spin");
@@ -75,8 +75,16 @@ function spinWheel() {
 			lootboxImg.className = "";
 			rewardCard.className = "reward-card";
 
-			document.getElementById("reward-name").innerText = result.prize.name;
-			document.getElementById("reward-rarity").innerText = result.prize.name.replaceAll("Loot Box", "");
+			const box = result.prize.value.value;
+			let rewardId;
+			let rewardData;
+			const entries = Object.entries(LOOTBOXES[box]);
+			while (!rewardId || state.owned.includes(`gamble.${box}.${rewardId}`)) {
+				[rewardId, rewardData] = entries[Math.floor(Math.random() * entries.length)];
+			}
+
+			document.getElementById("reward-name").innerText = rewardData.name;
+			document.getElementById("reward-rarity").innerText = toTitleCase(box);
 
 			rewardCard.style.setProperty("--tier-color", result.prize.color);
 			lootboxOverlay.classList.add("active");
@@ -89,7 +97,7 @@ function spinWheel() {
 					lootboxImg.classList.add("shatter");
 					rewardCard.classList.add("reveal");
 
-					// dispatchStateSetter(state, result.prize);
+					dispatchStateSetter(state, rewardData.value);
 				}, 800);
 			};
 
@@ -99,7 +107,6 @@ function spinWheel() {
 				lootboxOverlay.classList.remove("active");
 			};
 			rewardCard.addEventListener("click", handleOverlayClose, { once: true });
-
 		} else {
 			dispatchStateSetter(state, result.prize);
 		}
