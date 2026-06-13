@@ -54,6 +54,14 @@ export const ACHIEVEMENTS = {
 			{ type: "add", path: "xp", value: 300 }
 		]
 	},
+	calculations250: {
+		title: "Carpal Tunnel",
+		description: "Complete 250 calculations",
+		condition: { value: "calculations", "minimum": 250 },
+		rewards: [
+			{ type: "push", path: "buttons", value: "8" }
+		]
+	},
 	calculations500: {
 		title: "Why Are You Still Here",
 		description: "Seriously, go touch some grass",
