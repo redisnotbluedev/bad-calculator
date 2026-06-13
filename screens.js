@@ -1,4 +1,4 @@
-import { Kawarp } from "./kawarp.js";
+import { Kawarp } from "/lib/kawarp.js";
 import { save } from "./state.js";
 
 const screens = document.getElementById("screens");

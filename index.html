@@ -3,20 +3,15 @@
 	<head>
 		<meta charset="utf-8">
 		<link rel="stylesheet" href="/style.css">
+		<!-- This is because we need the fonts which are already hosted on jsDelivr -->
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.17.0/dist/katex.min.css">
-		<script defer src="/katex.js"></script>
 	</head>
 	<body>
 		<canvas id="background"></canvas>
 		<main id="screens">
 			<div class="calculator">
 				<p id="screen" class="screen"></p>
-				<div id="buttons" class="buttons">
-					<button data-input="1">1</button>
-					<button data-input="+">+</button>
-					<button data-special="submit">=</button>
-					<button data-special="clear">AC</button>
-				</div>
+				<div id="buttons" class="buttons"></div>
 			</div>
 			<div class="thatOtherthing"></div>
 		</main>
@@ -32,7 +27,6 @@
 			</div>
 		</div>
 
-		<script src="/screens.js" type="module"></script>
-		<script src="/script.js" type="module"></script>
+		<script src="/main.js" type="module"></script>
 	</body>
 </html>
