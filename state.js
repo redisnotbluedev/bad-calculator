@@ -9,16 +9,18 @@ export const state = new Proxy(JSON.parse(localStorage.getItem("userSessionData"
 	achievements: [],
 	quests: [],
 	tech: [],
+	tabsVisited: ["calculator"],
 	upgrades: {
 		moneyMultiplier: 1.0,
 		xpMultiplier: 1.0,
-		shuffleTime: 1000,
 		gambleLuck: 1.0,
 		captchaSkipChance: 0.0,
-		tabLoadTime: 2.0
+		shuffleTime: 1000,
+		tabLoadTime: 2000
 	},
 	calculations: 0,
-	spent: 0,
+	calculationFails: 0,
+	moneySpent: 0,
 	gambleFailStreak: 0,
 	gambleRounds: 0,
 	tutorial: false,
@@ -26,6 +28,19 @@ export const state = new Proxy(JSON.parse(localStorage.getItem("userSessionData"
 }), (_, value) => {
 	return typeof value === "string" && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/.test(value) ? new Date(value) : value;
 }), {
+	get(target, property) {
+		const value = target[property];
+		if (value && typeof value === "object" && !(value instanceof Date)) {
+			return new Proxy(value, {
+				set(nestedTarget, nestedProp, nestedValue) {
+					nestedTarget[nestedProp] = nestedValue;
+					listeners.forEach(l => l());
+					return true;
+				}
+			});
+		}
+		return value;
+	},
 	set(target, property, value) {
 		target[property] = value;
 		listeners.forEach(l => l());
@@ -50,7 +65,7 @@ export function save(showLoading = true) {
 		saveTimeoutId = setTimeout(() => {
 			indicator.classList.toggle("hidden", true);
 			saveTimeoutId = null;
-		}, state.upgrades.tabLoadTime * 1000);
+		}, state.upgrades.tabLoadTime);
 	}
 }
 

@@ -78,7 +78,12 @@ buttons.addEventListener("click", e => {
 	if (e.target.tagName !== "BUTTON") return;
 	switch (e.target.dataset.special) {
 		case "submit": {
+			state.calculations += 1;
 			expression = ce.parse(finishExpression()).latex;
+			if (expression.includes("\\error")) {
+				expression = "\\mbox{Error}";
+				state.calculationFails += 1;
+			}
 			katex.render(expression, display, { throwOnError: false });
 			break;
 		}

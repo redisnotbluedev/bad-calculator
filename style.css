@@ -110,6 +110,10 @@ html, body, #background {
 				margin: 0;
 			}
 		}
+
+		&.purple > hgroup > h1 {
+			color: magenta;
+		}
 	}
 }
 

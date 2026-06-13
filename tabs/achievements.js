@@ -1,9 +1,13 @@
 import { moveTo } from "./tabs.js";
+import { ACHIEVEMENTS } from "/data.js";
+import { state, listen } from "/state.js";
 
 const toast = document.getElementById("toast");
+const achievements = document.getElementById("achievements");
 
-function showAchievement(icon, title, description) {
+function showAchievement(icon, title, description, purple) {
 	const button = document.createElement("button");
+	if (purple) button.className = "purple";
 	button.innerHTML = `<img src="${icon}"><hgroup><h1>${title}</h1><p>${description}</p></hgroup>`;
 	button.style.transform = "translateY(-100%)";
 	button.addEventListener("click", e => { e.target.closest("button").remove(); moveTo("achievements"); });
@@ -16,4 +20,29 @@ function showAchievement(icon, title, description) {
 	}, 4000);
 }
 
-showAchievement("/calculator.jpg", "title here", "desc here");
+listen(() => {
+	Object.entries(ACHIEVEMENTS).forEach(([id, data]) => {
+		if (state.achievements.includes(id)) return;
+		if (data.condition === "dummy") return;
+
+		const value = data.condition.value.split(".").reduce((current, key) => {
+			return (current !== null && current !== undefined) ? current[key] : undefined;
+		}, state);
+
+		if (value >= data.condition.minimum) {
+			state.achievements.push(id);
+			showAchievement("/trophy.jpg", data.title, data.description, data.hidden || false);
+			data.rewards.forEach(r => {
+				if (r.type === "button") {
+					state.buttons.push(r.value);
+				} else {
+					state[r.type] += r.value;
+				}
+			});
+		}
+	});
+});
+
+function renderAchievements() {
+
+}

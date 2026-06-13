@@ -1,5 +1,5 @@
 import { Kawarp } from "/lib/kawarp.js";
-import { save } from "/state.js";
+import { state, save } from "/state.js";
 
 const screens = document.getElementById("screens");
 const sceneLabel = document.getElementById("scene");
@@ -48,6 +48,9 @@ screens.addEventListener("scrollend", () => {
 
 	if (currentScreen) {
 		const id = currentScreen.id;
+		if (!state.tabsVisited.includes(id)) {
+			state.tabsVisited.push(id);
+		}
 		sceneLabel.innerText = id.charAt(0).toUpperCase() + id.slice(1);
 	}
 });
