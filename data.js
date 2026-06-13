@@ -167,13 +167,15 @@ export const SHOP = {
 			title: "Unlock 3",
 			description: "Higher than I can count",
 			cost: { unit: "money", value: 300 },
-			value: { type: "push", path: "buttons", value: "3" }
+			value: { type: "push", path: "buttons", value: "3" },
+			unique: true
 		},
 		backspace: {
 			title: "Unlock Backspace",
 			description: "Honestly a skill issue if you need this",
 			cost: { unit: "money", value: 1000 },
-			value: { type: "push", path: "buttons", value: "⌫" }
+			value: { type: "push", path: "buttons", value: "⌫" },
+			unique: true
 		}
 	},
 	wheel: {
@@ -191,6 +193,7 @@ export const SHOP = {
 		}
 	}
 }
+
 
 export const WHEEL = [
 	{

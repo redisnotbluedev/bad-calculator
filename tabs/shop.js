@@ -1,19 +1,3 @@
-//					<label><input type="radio" id="bundles" name="category">Bundles</label>
-// 					<label><input type="radio" id="unlocks" name="category">Unlocks</label>
-// 					<label><input type="radio" id="wheel" name="category">Wheel</label>
-// 					<label><input type="radio" id="special" name="category">Special</label>
-
-// 					<div>
-// 						<h1>Items</h1>
-// 						<div>
-// 							<div data-id="mathBuxSmall">
-// 								<h2>Handful of MathBux</h2>
-// 								<p>100 MathBux. Better than nothing.</p>
-// 								<button><img src="/coin.jpg">500</button>
-// 							</div>
-// 						</div>
-// 					</div>
-
 import { SHOP } from "/data.js";
 import { state, listen } from "/state.js";
 import { dispatchStateSetter, toTitleCase } from "/utils.js";
@@ -34,11 +18,13 @@ function renderShop() {
 
 		label.innerHTML = `<input type="radio" name="category" ${i === tabIndex ? "checked" : ""}>${categoryName}`;
 		sidebar.appendChild(label);
-		sidebar.addEventListener("change", e => {
-			if (e.target.type === "radio" && e.target.name === "theme") {
-				tabIndex = [...e.target.parentNode.children].indexOf(e.target);
+		label.addEventListener("change", e => {
+			if (e.target.type === "radio" && e.target.name === "category") {
+				tabIndex = i;
+				renderShop();
 			}
 		});
+
 
 		page.innerHTML = `<h1>Items</h1>`;
 		page.appendChild(entries)
@@ -48,7 +34,7 @@ function renderShop() {
 			const entry = document.createElement("div");
 			const button = document.createElement("button");
 			const price = { dummy: "$", money: `<img src="/coin.jpg">` }[data.cost.unit] + data.cost.value;
-			const canBuy = data.cost.unit === "money" && state.money >= data.cost.value && !state.owned.includes(`${category}.${id}`)
+			const canBuy = data.cost.unit === "money" && state.money >= data.cost.value && !(state.owned.includes(`${category}.${id}`) && data.unique);
 
 			if (!canBuy) entry.className = "red";
 			entry.innerHTML = `<h2>${data.title}</h2><p>${data.description}</p>`;
@@ -58,7 +44,7 @@ function renderShop() {
 				if (canBuy) {
 					state.money -= data.cost.value;
 					state.owned.push(`${category}.${id}`);
-					dispatchStateSetter(data.value, state)
+					dispatchStateSetter(data.value, state);
 				}
 			});
 			entry.appendChild(button);
