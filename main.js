@@ -1,3 +1,4 @@
 import "./tabs/tabs.js"
 import "./tabs/calculator.js"
+import "./tabs/shop.js"
 import "./tabs/achievements.js"

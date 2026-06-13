@@ -1,5 +1,6 @@
 :root {
 	font-family: sans-serif;
+	--border-color: rgba(255, 255, 255, 0.1);
 }
 
 *, *::before, *::after {
@@ -80,7 +81,7 @@ html, body, #background {
 		align-items: center;
 		gap: 1rem;
 		background: rgba(0, 0, 0, 0.8);
-		border: 2px solid rgba(255, 255, 255, 0.1);
+		border: 2px solid var(--border-color);
 		color: white;
 		cursor: pointer;
 		border-radius: 0.5rem;
@@ -134,7 +135,7 @@ main {
 		scroll-snap-stop: always;
 		border-radius: 2rem;
 		background: rgba(0, 0, 0, 0.8);
-		border: 1px solid rgba(255, 255, 255, 0.1);
+		border: 1px solid var(--border-color);
 		padding: 2rem;
 	}
 
@@ -149,7 +150,7 @@ main {
 		cursor: pointer;
 		background: rgba(0, 0, 0, 0.8);
 		color: white;
-		border: 1px solid rgba(255, 255, 255, 0.1);
+		border: 1px solid var(--border-color);
 
 		&.left {
 			left: 0;
@@ -179,7 +180,7 @@ main {
 		text-align: center;
 		background: rgba(0, 0, 0, 0.8);
 		color: white;
-		border: 1px solid rgba(255, 255, 255, 0.1);
+		border: 1px solid var(--border-color);
 	}
 }
 
@@ -293,6 +294,106 @@ main {
 			color: magenta;
 		}
 	}
+}
+
+.shop {
+	display: flex;
+	padding: 0;
+	overflow: hidden;
+	color: white;
+
+	& > aside {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		background: #505050;
+		padding: 2rem;
+
+		& > h1 {
+			font-size: 1.2rem;
+		}
+
+		& > label {
+			cursor: pointer;
+			position: relative;
+			border-left: 0.5rem solid transparent;
+			padding-left: 0.5rem;
+
+			&:has(input:checked) {
+				border-color: white;
+			}
+
+			& > input {
+				display: none;
+			}
+		}
+	}
+
+	& > div {
+		display: none;
+		flex: 1;
+		padding: 2rem;
+
+		& > div {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+			grid-auto-rows: minmax(auto, 60px) minmax(auto, 60px) minmax(auto, 50px);
+			gap: 1rem;
+
+			& > div {
+				display: grid;
+				grid-template-rows: subgrid;
+				padding: 0.5rem;
+				gap: 1rem;
+				grid-row: span 3;
+
+				border: 2px solid var(--border-color);
+				border-radius: 0.5rem;
+				text-align: center;
+				transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+				&:hover {
+					transform: translateY(5px);
+				}
+
+				&.red {
+					--button-bg: indianred;
+				}
+
+				& > h2 {
+					margin: 0;
+					font-size: 1rem;
+					font-weight: inherit;
+				}
+
+				& > p {
+					margin: 0;
+				}
+
+				& > button {
+					background: var(--button-bg, palegreen);
+					color: black;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					gap: 0.5rem;
+					border: 1px solid var(--border-color);
+					border-radius: 0.5rem;
+					padding: 0.5rem;
+					cursor: pointer;
+
+					& > img {
+						height: 1lh;
+					}
+				}
+			}
+		}
+	}
+
+	&:has(aside > label:nth-of-type(1) input:checked) > div:nth-of-type(1) { display: block; }
+	&:has(aside > label:nth-of-type(2) input:checked) > div:nth-of-type(2) { display: block; }
+	&:has(aside > label:nth-of-type(3) input:checked) > div:nth-of-type(3) { display: block; }
+	&:has(aside > label:nth-of-type(4) input:checked) > div:nth-of-type(4) { display: block; }
 }
 
 @keyframes l1 {to{transform: rotate(.5turn)}}

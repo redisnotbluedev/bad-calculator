@@ -1,6 +1,7 @@
 import { moveTo } from "./tabs.js";
 import { ACHIEVEMENTS } from "/data.js";
 import { state, listen } from "/state.js";
+import { reducePath, dispatchStateSetter } from "/utils.js";
 
 const toast = document.getElementById("toast");
 const achievements = document.getElementById("achievements");
@@ -25,20 +26,12 @@ listen(() => {
 		if (state.achievements.includes(id)) return;
 		if (data.condition === "dummy") return;
 
-		const value = data.condition.value.split(".").reduce((current, key) => {
-			return (current !== null && current !== undefined) ? current[key] : undefined;
-		}, state);
+		const value = reducePath(data.condition.value, state)
 
 		if (value >= data.condition.minimum) {
 			state.achievements.push(id);
 			showAchievement("/trophy.jpg", data.title, data.description, data.hidden || false);
-			data.rewards.forEach(r => {
-				if (r.type === "button") {
-					state.buttons.push(r.value);
-				} else {
-					state[r.type] += r.value;
-				}
-			});
+			data.rewards.forEach(r => dispatchStateSetter(r, state));
 		}
 	});
 });

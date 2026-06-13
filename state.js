@@ -5,6 +5,8 @@ let listeners = [];
 export const state = new Proxy(JSON.parse(localStorage.getItem("userSessionData") || JSON.stringify({
 	money: 100,
 	xp: 0,
+	spins: 0,
+	owned: [],
 	buttons: ["1", "+", "=", "AC"],
 	achievements: [],
 	quests: [],

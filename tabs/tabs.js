@@ -1,5 +1,6 @@
 import { Kawarp } from "/lib/kawarp.js";
 import { state, save } from "/state.js";
+import { toTitleCase } from "/utils.js"
 
 const screens = document.getElementById("screens");
 const sceneLabel = document.getElementById("scene");
@@ -51,7 +52,7 @@ screens.addEventListener("scrollend", () => {
 		if (!state.tabsVisited.includes(id)) {
 			state.tabsVisited.push(id);
 		}
-		sceneLabel.innerText = id.charAt(0).toUpperCase() + id.slice(1);
+		sceneLabel.innerText = toTitleCase(id.replaceAll("-", " "));
 	}
 });
 
