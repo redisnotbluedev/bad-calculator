@@ -8,6 +8,7 @@ const display = document.getElementById("screen");
 const buttons = document.getElementById("buttons");
 let expression = "";
 let shuffleInterval;
+let isAnimating = false;
 
 function getOptimalGrid(buttonCount, containerWidth, containerHeight) {
 	let bestCols = 1;
@@ -48,34 +49,55 @@ function finishExpression() {
 }
 
 function shuffleButtons() {
+	if (isAnimating) return;
+	isAnimating = true;
 	const items = Array.from(buttons.children);
+
 	const positions = new Map(items.map(el => [el, el.getBoundingClientRect()]));
 
 	for (let i = items.length - 1; i > 0; i--) {
 		const j = Math.floor(Math.random() * (i + 1));
 		[items[i], items[j]] = [items[j], items[i]];
 	}
-	items.forEach(el => buttons.appendChild(el));
 
-	buttons.offsetHeight; // force reflow
+	buttons.style.pointerEvents = "none";
+
+	items.forEach(el => {
+		el.style.transition = "none";
+		buttons.appendChild(el);
+	});
+
+	buttons.offsetHeight;
 
 	items.forEach(el => {
 		const prev = positions.get(el);
 		const next = el.getBoundingClientRect();
-		el.style.transition = "none";
-		el.style.transform = `translate(${prev.left - next.left}px, ${prev.top - next.top}px)`;
+		const dX = prev.left - next.left;
+		const dY = prev.top - next.top;
+		el.style.transform = `translate(${dX}px, ${dY}px)`;
 	});
+
+	buttons.offsetHeight;
 
 	requestAnimationFrame(() => {
 		items.forEach(el => {
 			el.style.transition = "transform 0.5s ease-in-out";
-			el.style.transform = "";
+			el.style.transform = "translate(0px, 0px)";
 		});
 	});
+
+	setTimeout(() => {
+		items.forEach(el => {
+			el.style.transition = "";
+			el.style.transform = "";
+		});
+		buttons.style.pointerEvents = "";
+		isAnimating = false;
+	}, 500);
 }
 
 buttons.addEventListener("click", e => {
-	if (e.target.tagName !== "BUTTON") return;
+	if (e.target.tagName !== "BUTTON" || isAnimating) return;
 	switch (e.target.dataset.special) {
 		case "submit": {
 			state.calculations += 1;
@@ -101,6 +123,7 @@ buttons.addEventListener("click", e => {
 });
 
 function loadButtons() {
+	if (isAnimating) return;
 	buttons.innerHTML = "";
 	Object.entries(BUTTONS).forEach(([label, data]) => {
 		if (state.buttons.includes(label)) {
@@ -111,12 +134,11 @@ function loadButtons() {
 			buttons.appendChild(button);
 		}
 	});
+	updateGrid();
 }
 
 loadButtons();
 listen(loadButtons);
-
-updateGrid();
 window.addEventListener("resize", updateGrid);
 shuffleInterval = setInterval(shuffleButtons, state.upgrades.shuffleTime);
 
