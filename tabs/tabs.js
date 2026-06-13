@@ -2,6 +2,7 @@ import { Kawarp } from "/lib/kawarp.js";
 import { save } from "/state.js";
 
 const screens = document.getElementById("screens");
+const sceneLabel = document.getElementById("scene");
 const bg = document.getElementById("background");
 const kawarp = new Kawarp(bg, {
 	speed: 1.0,
@@ -31,7 +32,7 @@ document.querySelector("body > button.right").addEventListener("click", () => {
 });
 
 export function moveTo(id) {
-	const target = document.getElementById(`page-${id}`);
+	const target = document.getElementById(`${id}`);
 	if (target) {
 		target.scrollIntoView({
 			behavior: "smooth",
@@ -40,3 +41,15 @@ export function moveTo(id) {
 		save();
 	}
 }
+
+screens.addEventListener("scrollend", () => {
+	const currentIndex = Math.round(screens.scrollLeft / screens.clientWidth);
+	const currentScreen = screens.children[currentIndex];
+
+	if (currentScreen) {
+		const id = currentScreen.id;
+		sceneLabel.innerText = id.charAt(0).toUpperCase() + id.slice(1);
+	}
+});
+
+screens.scrollTo({ left: 0 });
