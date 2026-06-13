@@ -97,7 +97,7 @@ function spinWheel() {
 					lootboxImg.classList.add("shatter");
 					rewardCard.classList.add("reveal");
 
-					dispatchStateSetter(state, rewardData.value);
+					dispatchStateSetter(rewardData.value, state);
 				}, 800);
 			};
 
@@ -108,7 +108,7 @@ function spinWheel() {
 			};
 			rewardCard.addEventListener("click", handleOverlayClose, { once: true });
 		} else {
-			dispatchStateSetter(state, result.prize);
+			dispatchStateSetter(result.prize.value, state);
 		}
 	}, { once: true });
 }

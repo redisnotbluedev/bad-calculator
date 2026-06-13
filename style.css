@@ -166,12 +166,11 @@ main {
 		}
 	}
 
-	& ~ span.scene {
+	& ~ .toolbar {
 		position: absolute;
 		bottom: 0;
 		left: 0;
 		right: 0;
-		min-width: 10vmin;
 		width: max-content;
 		margin: 0 auto;
 		border-radius: 0.5rem;
@@ -182,6 +181,20 @@ main {
 		background: var(--bg-color);
 		color: white;
 		border: 1px solid var(--border-color);
+		display: flex;
+		justify-content: space-around;
+		gap: 3rem;
+
+		& > span {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 0.5rem;
+
+			& > img {
+				height: 1lh;
+			}
+		}
 	}
 }
 

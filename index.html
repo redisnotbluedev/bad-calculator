@@ -28,10 +28,7 @@
 				</div>
 				<ol class="logs" id="logs"></ol>
 				<div class="lootbox" id="lootbox">
-					<!-- Your existing image -->
 					<img src="/lootbox.png" id="lootboxImg">
-
-					<!-- ADD THIS: The hidden card structure that pops open -->
 					<div class="reward-card" id="reward-card">
 						<div class="rarity" id="reward-rarity">Legendary</div>
 						<img src="/item.jpg">
@@ -44,7 +41,11 @@
 
 		<button class="left">←</button>
 		<button class="right">→</button>
-		<span class="scene" id="scene">Calculator</span>
+		<div class="toolbar">
+			<span id="money"><img src="/coin.jpg">0</span>
+			<span id="scene">Calculator</span>
+			<span id="xp"><img src="/xp.jpg">0</span>
+		</div>
 
 		<div class="loading-overlay hidden" id="loading-overlay">
 			<img src="./calculator.jpg">

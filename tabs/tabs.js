@@ -1,9 +1,11 @@
 import { Kawarp } from "/lib/kawarp.js";
-import { state, save } from "/state.js";
+import { state, listen, save } from "/state.js";
 import { toTitleCase } from "/utils.js"
 
 const screens = document.getElementById("screens");
 const sceneLabel = document.getElementById("scene");
+const moneyLabel = document.getElementById("money");
+const xpLabel = document.getElementById("xp");
 const bg = document.getElementById("background");
 const kawarp = new Kawarp(bg, {
 	speed: 1.0,
@@ -55,5 +57,13 @@ screens.addEventListener("scrollend", () => {
 		sceneLabel.innerText = toTitleCase(id.replaceAll("-", " "));
 	}
 });
+
+function updateBalances() {
+	moneyLabel.innerHTML = `<img src="/coin.jpg">${state.money}`;
+	xpLabel.innerHTML = `<img src="/xp.jpg">${state.xp}`;
+}
+
+updateBalances()
+listen(updateBalances)
 
 // screens.scrollTo({ left: 0 });
