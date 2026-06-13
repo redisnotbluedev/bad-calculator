@@ -1,5 +1,5 @@
 import { ComputeEngine } from "/lib/compute.js";
-import { state } from "/state.js";
+import { state, listen } from "/state.js";
 import { BUTTONS } from "/data.js";
 import katex from "/lib/katex.js";
 
@@ -95,13 +95,21 @@ buttons.addEventListener("click", e => {
 	}
 });
 
-Object.entries(BUTTONS).forEach(([label, data]) => {
-	const button = document.createElement("button");
-	if (data.type == "simple") { button.dataset.input = data.value; }
-	if (data.type == "special") { button.dataset.special = data.value; }
-	button.innerText = label;
-	buttons.appendChild(button);
-});
+function loadButtons() {
+	buttons.innerHTML = "";
+	Object.entries(BUTTONS).forEach(([label, data]) => {
+		if (state.buttons.includes(label)) {
+			const button = document.createElement("button");
+			if (data.type == "simple") { button.dataset.input = data.value; }
+			if (data.type == "special") { button.dataset.special = data.value; }
+			button.innerText = label;
+			buttons.appendChild(button);
+		}
+	});
+}
+
+loadButtons();
+listen(loadButtons);
 
 updateGrid();
 window.addEventListener("resize", updateGrid);

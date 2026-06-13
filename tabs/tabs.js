@@ -1,5 +1,5 @@
 import { Kawarp } from "/lib/kawarp.js";
-import { save } from "./state.js";
+import { save } from "/state.js";
 
 const screens = document.getElementById("screens");
 const bg = document.getElementById("background");
@@ -29,3 +29,14 @@ document.querySelector("body > button.right").addEventListener("click", () => {
 	});
 	save();
 });
+
+export function moveTo(id) {
+	const target = document.getElementById(`page-${id}`);
+	if (target) {
+		target.scrollIntoView({
+			behavior: "smooth",
+			block: "nearest"
+		});
+		save();
+	}
+}

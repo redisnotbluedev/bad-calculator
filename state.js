@@ -1,7 +1,8 @@
 const indicator = document.getElementById("loading-overlay");
 let saveTimeoutId = null;
+let listeners = [];
 
-export const state = JSON.parse(localStorage.getItem("userSessionData") || JSON.stringify({
+export const state = new Proxy(JSON.parse(localStorage.getItem("userSessionData") || JSON.stringify({
 	money: 100,
 	xp: 0,
 	buttons: ["1", "+", "=", "AC"],
@@ -24,7 +25,17 @@ export const state = JSON.parse(localStorage.getItem("userSessionData") || JSON.
 	start: new Date()
 }), (_, value) => {
 	return typeof value === "string" && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/.test(value) ? new Date(value) : value;
+}), {
+	set(target, property, value) {
+		target[property] = value;
+		listeners.forEach(l => l());
+		return true;
+	}
 });
+
+export function listen(listener) {
+	listeners.push(listener);
+}
 
 export function save(showLoading = true) {
 	localStorage.setItem("userSessionData", JSON.stringify(state));
@@ -39,7 +50,7 @@ export function save(showLoading = true) {
 		saveTimeoutId = setTimeout(() => {
 			indicator.classList.toggle("hidden", true);
 			saveTimeoutId = null;
-		}, state.upgrades.tabLoadTime);
+		}, state.upgrades.tabLoadTime * 1000);
 	}
 }
 

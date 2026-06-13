@@ -7,13 +7,14 @@
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.17.0/dist/katex.min.css">
 	</head>
 	<body>
+		<output id="toast"></output>
 		<canvas id="background"></canvas>
 		<main id="screens">
-			<div class="calculator">
+			<div class="calculator" id="page-calculator">
 				<p id="screen" class="screen"></p>
 				<div id="buttons" class="buttons"></div>
 			</div>
-			<div class="thatOtherthing"></div>
+			<div class="thatOtherthing" id="page-achievements"></div>
 		</main>
 
 		<button class="left">←</button>

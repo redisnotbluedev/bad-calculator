@@ -23,6 +23,7 @@ html, body, #background {
 	justify-content: center;
 	background: black;
 	opacity: 1;
+	z-index: 999;
 	transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
 
 	&.hidden {
@@ -43,7 +44,6 @@ html, body, #background {
 		display: flex;
 		gap: 2rem;
 		padding: 2rem;
-		max-height: 50px;
 
 		& > p {
 			color: white;
@@ -58,6 +58,57 @@ html, body, #background {
 			border: 8px solid;
 			border-color: white #0000;
 			animation: l1 1s infinite;
+		}
+	}
+}
+
+#toast {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 1;
+	display: flex;
+	justify-content: center;
+
+	&:not(:empty) {
+		padding: 0.5rem;
+	}
+
+	& > button {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		background: rgba(0, 0, 0, 0.8);
+		border: 2px solid rgba(255, 255, 255, 0.1);
+		color: white;
+		cursor: pointer;
+		border-radius: 1rem;
+		width: max-content;
+		padding: 1rem;
+		transform: translateY(0);
+		transition: transform 0.2s ease-out;
+
+		& > img {
+			width: 48px;
+			height: 48px;
+			flex-shrink: 0;
+			object-fit: contain;
+		}
+
+		& > hgroup {
+			text-align: left;
+			margin-left: auto;
+			margin-right: auto;
+
+			& > h1 {
+				margin: 0;
+				color: yellow;
+			}
+
+			& > p {
+				margin: 0;
+			}
 		}
 	}
 }
