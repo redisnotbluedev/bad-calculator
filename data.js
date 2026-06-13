@@ -191,3 +191,66 @@ export const SHOP = {
 		}
 	}
 }
+
+export const WHEEL = [
+	{
+		name: "25 MathBux",
+		weight: 8,
+		color: "#2ecc71",
+		value: { type: "add", path: "money", value: 25 }
+	},
+	{
+		name: "50 MathBux",
+		weight: 8,
+		color: "#27ae60",
+		value: { type: "add", path: "money", value: 50 }
+	},
+	{
+		name: "75 MathBux",
+		weight: 8,
+		color: "#1e824c",
+		value: { type: "add", path: "money", value: 75 }
+	},
+	{
+		name: "20 XP",
+		weight: 8,
+		color: "#3498db",
+		value: { type: "add", path: "xp", value: 20 }
+	},
+	{
+		name: "40 XP",
+		weight: 8,
+		color: "#2980b9",
+		value: { type: "add", path: "xp", value: 40 }
+	},
+	{
+		name: "80 XP",
+		weight: 8,
+		color: "#1f3a60",
+		value: { type: "add", path: "xp", value: 80 }
+	},
+	{
+		name: "Nothing",
+		weight: 21,
+		color: "#95a5a6",
+		value: { type: "none", path: null, value: null }
+	},
+	{
+		name: "Extra Spin",
+		weight: 15,
+		color: "#e67e22",
+		value: { type: "add", path: "spins", value: 1 }
+	},
+	{
+		name: "Rare Loot Box",
+		weight: 10,
+		color: "#9b59b6",
+		value: { type: "add", path: "gamble.lootbox", value: "rare" }
+	},
+	{
+		name: "Legendary Loot Box",
+		weight: 6,
+		color: "#f1c40f",
+		value: { type: "add", path: "gamble.lootbox", value: "legendary" }
+	}
+];

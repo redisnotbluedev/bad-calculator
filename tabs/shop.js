@@ -32,7 +32,7 @@ function renderShop() {
 		const page = document.createElement("div");
 		const entries = document.createElement("div");
 
-		label.innerHTML = `<input type="radio" id="${category}" name="category" ${i === tabIndex ? "checked" : ""}>${categoryName}`;
+		label.innerHTML = `<input type="radio" name="category" ${i === tabIndex ? "checked" : ""}>${categoryName}`;
 		sidebar.appendChild(label);
 		sidebar.addEventListener("change", e => {
 			if (e.target.type === "radio" && e.target.name === "theme") {

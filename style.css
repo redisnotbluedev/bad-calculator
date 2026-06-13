@@ -396,4 +396,53 @@ main {
 	&:has(aside > label:nth-of-type(4) input:checked) > div:nth-of-type(4) { display: block; }
 }
 
+.lucky-wheel {
+	anchor-scope: --wheel;
+
+	& > .pointer {
+		position: absolute;
+		right: anchor(right);
+		top: anchor(top);
+		bottom: anchor(bottom);
+		position-anchor: --wheel;
+
+		&::after {
+			content: "";
+			position: absolute;
+			top: 50%;
+			background: #A5A5A5;
+			width: 1rem;
+			height: 1rem;
+			transform: translate(50%, -50%) rotate(45deg);
+			left: -0.5rem;
+			border-radius: 4px;
+			clip-path: polygon(0% 0%, 100% 100%, 0% 100%);
+			z-index: 1;
+			border: black solid 1px;
+		}
+	}
+
+	& > .wheel {
+		anchor-name: --wheel;
+		height: 90%;
+		width: auto;
+		aspect-ratio: 1 / 1;
+		border-radius: 50%;
+		overflow: hidden;
+		transition: transform 4s cubic-bezier(0.1, 0.8, 0.25, 1);
+	}
+
+	& > button {
+		display: block;
+		margin: 20px auto;
+		padding: 10px 20px;
+		font-size: 1rem;
+		cursor: pointer;
+
+		&[disabled] {
+			cursor: initial;
+		}
+	}
+}
+
 @keyframes l1 {to{transform: rotate(.5turn)}}

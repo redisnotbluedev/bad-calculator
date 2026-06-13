@@ -22,6 +22,8 @@ export function updatePath(path, object, updater) {
 }
 
 export function dispatchStateSetter(value, state) {
+	if (!value || !value.type || !value.path || !value.value) return;
+
 	switch (value.type) {
 		case "add": {
 			updatePath(value.path, state, v => v + value.value);
@@ -37,6 +39,13 @@ export function dispatchStateSetter(value, state) {
 		}
 		case "pop": {
 			updatePath(value.path, state, v => (v || []).filter(i => i !== value.value));
+			break;
+		}
+		case "none": {
+			break;
+		}
+		default: {
+			console.error(`Unknown state operation ${value.type}!`);
 			break;
 		}
 	}
