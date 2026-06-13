@@ -1,7 +1,12 @@
 import { WHEEL } from "/data.js";
+import { state, listen } from "/state.js";
+import { moveTo } from "./tabs.js";
 
 const wheel = document.getElementById("wheel");
 const spinButton = document.getElementById("spin");
+const spinCounter = document.getElementById("spin-counter");
+const buyButton = document.getElementById("buy-spins");
+const logs = document.getElementById("logs");
 let currentRotation = 0;
 
 function setupWheelVisuals() {
@@ -29,6 +34,8 @@ function determineWinningPrize() {
 }
 
 function spinWheel() {
+	if (state.spins <= 0) return;
+	state.spins -= 1;
 	spinButton.disabled = true;
 	const result = determineWinningPrize();
 	const totalWeight = WHEEL.reduce((sum, prize) => sum + prize.weight, 0);
@@ -55,9 +62,19 @@ function spinWheel() {
 
 	wheel.addEventListener("transitionend", () => {
 		spinButton.disabled = false;
-		alert(`🎰 You won: ${result.prize.name}!`);
+		const entry = document.createElement("li");
+		entry.innerHTML = `You won <b style="color:${result.prize.color}">${result.prize.name}!</b>`;
+		logs.prepend(entry);
 	}, { once: true });
 }
 
+function update() {
+	spinButton.classList.toggle("red", state.spins <= 0);
+	spinCounter.innerText = state.spins;
+}
+
+listen(update);
+update();
+buyButton.addEventListener("click", () => moveTo("shop"));
 setupWheelVisuals();
 spinButton.addEventListener("click", spinWheel);

@@ -398,50 +398,95 @@ main {
 
 .lucky-wheel {
 	anchor-scope: --wheel;
+	display: flex;
+	color: white;
 
-	& > .pointer {
-		position: absolute;
-		right: anchor(right);
-		top: anchor(top);
-		bottom: anchor(bottom);
-		position-anchor: --wheel;
+	& > div {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1rem;
 
-		&::after {
-			content: "";
+		& > .pointer {
 			position: absolute;
-			top: 50%;
-			background: #A5A5A5;
-			width: 1rem;
-			height: 1rem;
-			transform: translate(50%, -50%) rotate(45deg);
-			left: -0.5rem;
-			border-radius: 4px;
-			clip-path: polygon(0% 0%, 100% 100%, 0% 100%);
-			z-index: 1;
-			border: black solid 1px;
+			right: anchor(right);
+			top: anchor(top);
+			bottom: anchor(bottom);
+			left: anchor(right);
+			position-anchor: --wheel;
+
+			&::after {
+				content: "";
+				position: absolute;
+				top: 50%;
+				background: #A5A5A5;
+				width: 2rem;
+				height: 2rem;
+				transform: translate(50%, -50%) rotate(45deg);
+				left: -1rem;
+				border-radius: 4px;
+				clip-path: polygon(0% 0%, 100% 100%, 0% 100%);
+				z-index: 1;
+				border: black solid 1px;
+			}
+		}
+
+		& > .wheel {
+			anchor-name: --wheel;
+			height: 100%;
+			width: auto;
+			aspect-ratio: 1 / 1;
+			border-radius: 50%;
+			overflow: hidden;
+			transition: transform 4s cubic-bezier(0.1, 0.8, 0.25, 1);
+		}
+
+		& > div {
+			display: flex;
+			gap: 0.5rem;
+			align-items: center;
+			justify-content: center;
+			padding: 1rem;
+
+			& > button {
+				padding: 1rem;
+				cursor: pointer;
+				border: none;
+				border-radius: 0.5rem;
+				color: black;
+
+				&:first-child {
+					background: palegreen;
+				}
+
+				&:last-child {
+					background: palegoldenrod;
+				}
+
+				&.red {
+					background: indianred;
+					cursor: unset;
+					pointer-events: none;
+					opacity: 0.8;
+				}
+
+				&[disabled] {
+					cursor: unset;
+					opacity: 0.8;
+				}
+			}
 		}
 	}
 
-	& > .wheel {
-		anchor-name: --wheel;
-		height: 90%;
-		width: auto;
-		aspect-ratio: 1 / 1;
-		border-radius: 50%;
-		overflow: hidden;
-		transition: transform 4s cubic-bezier(0.1, 0.8, 0.25, 1);
-	}
-
-	& > button {
-		display: block;
-		margin: 20px auto;
-		padding: 10px 20px;
-		font-size: 1rem;
-		cursor: pointer;
-
-		&[disabled] {
-			cursor: initial;
-		}
+	& > ol {
+		flex: 1;
+		border: 2px solid var(--border-color);
+		border-radius: 0.5rem;
+		overflow-y: auto;
+		list-style-type: none;
+		margin: 0;
+		padding: 1rem;
 	}
 }
 
