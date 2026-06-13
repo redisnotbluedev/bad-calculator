@@ -34,6 +34,7 @@ listen(() => {
 			data.rewards.forEach(r => dispatchStateSetter(r, state));
 		}
 	});
+	renderAchievements()
 });
 
 function renderAchievements() {
