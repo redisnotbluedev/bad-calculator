@@ -1,6 +1,7 @@
 import { WHEEL } from "/data.js";
 import { state, listen } from "/state.js";
 import { moveTo } from "./tabs.js";
+import { dispatchStateSetter } from "/utils.js";
 
 const wheel = document.getElementById("wheel");
 const spinButton = document.getElementById("spin");
@@ -65,6 +66,43 @@ function spinWheel() {
 		const entry = document.createElement("li");
 		entry.innerHTML = `You won <b style="color:${result.prize.color}">${result.prize.name}!</b>`;
 		logs.prepend(entry);
+
+		if (result.prize.value.path === "gamble.lootbox") {
+			const lootboxOverlay = document.getElementById("lootbox");
+			const lootboxImg = document.querySelector("#lootbox img");
+			const rewardCard = document.getElementById("reward-card");
+
+			lootboxImg.className = "";
+			rewardCard.className = "reward-card";
+
+			document.getElementById("reward-name").innerText = result.prize.name;
+			document.getElementById("reward-rarity").innerText = result.prize.name.replaceAll("Loot Box", "");
+
+			rewardCard.style.setProperty("--tier-color", result.prize.color);
+			lootboxOverlay.classList.add("active");
+
+			const handleBoxOpening = () => {
+				lootboxImg.classList.add("shake");
+
+				setTimeout(() => {
+					lootboxImg.classList.remove("shake");
+					lootboxImg.classList.add("shatter");
+					rewardCard.classList.add("reveal");
+
+					// dispatchStateSetter(state, result.prize);
+				}, 800);
+			};
+
+			lootboxImg.addEventListener("click", handleBoxOpening, { once: true });
+
+			const handleOverlayClose = () => {
+				lootboxOverlay.classList.remove("active");
+			};
+			rewardCard.addEventListener("click", handleOverlayClose, { once: true });
+
+		} else {
+			dispatchStateSetter(state, result.prize);
+		}
 	}, { once: true });
 }
 

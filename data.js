@@ -252,7 +252,7 @@ export const WHEEL = [
 	},
 	{
 		name: "Legendary Loot Box",
-		weight: 6,
+		weight: 60,
 		color: "#f1c40f",
 		value: { type: "add", path: "gamble.lootbox", value: "legendary" }
 	}
