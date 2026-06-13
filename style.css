@@ -1,3 +1,7 @@
+:root {
+	font-family: sans-serif;
+}
+
 html, body, #background {
 	margin: 0;
 	padding: 0;
@@ -5,6 +9,53 @@ html, body, #background {
 	height: 100vh;
 	overflow: hidden;
 	background: #000;
+}
+
+.loading-overlay {
+	position: fixed;
+	inset: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: black;
+	opacity: 1;
+	transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+
+	&.hidden {
+		opacity: 0;
+		visibility: hidden;
+		pointer-events: none;
+	}
+
+	& > img {
+		max-width: 100%;
+		height: auto;
+	}
+
+	& > .corner {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		display: flex;
+		gap: 2rem;
+		padding: 2rem;
+		max-height: 50px;
+
+		& > p {
+			color: white;
+			font-size: 2rem;
+			margin: 0;
+		}
+
+		& > .loader {
+			width: 50px;
+			height: 50px;
+			border-radius: 50%;
+			border: 8px solid;
+			border-color: white #0000;
+			animation: l1 1s infinite;
+		}
+	}
 }
 
 main {
@@ -88,3 +139,5 @@ main {
 		}
 	}
 }
+
+@keyframes l1 {to{transform: rotate(.5turn)}}

@@ -1,4 +1,5 @@
 import { Kawarp } from "./kawarp.js";
+import { save } from "./state.js";
 
 const screens = document.getElementById("screens");
 const bg = document.getElementById("background");
@@ -18,6 +19,7 @@ document.querySelector("body > button.left").addEventListener("click", () => {
 		left: -screens.clientWidth,
 		behavior: "smooth"
 	});
+	save();
 });
 
 document.querySelector("body > button.right").addEventListener("click", () => {
@@ -25,4 +27,5 @@ document.querySelector("body > button.right").addEventListener("click", () => {
 		left: screens.clientWidth,
 		behavior: "smooth"
 	});
+	save();
 });
