@@ -76,11 +76,17 @@ function spinWheel() {
 			rewardCard.className = "reward-card";
 
 			const box = result.prize.value.value;
-			let rewardId;
-			let rewardData;
 			const entries = Object.entries(LOOTBOXES[box]);
-			while (!rewardId || state.owned.includes(`gamble.${box}.${rewardId}`)) {
-				[rewardId, rewardData] = entries[Math.floor(Math.random() * entries.length)];
+			let [rewardId, rewardData] = entries[Math.floor(Math.random() * entries.length)];
+
+			if (state.owned.includes(`gamble.${box}.${rewardId}`) && rewardData.unique) {
+				rewardId = null;
+				rewardData = {
+					name: "Owned! +150 MathBux",
+					value: {type: "add", path: "money", value: 150}
+				}
+			} else {
+				state.owned.push(`gamble.${box}.${rewardId}`);
 			}
 
 			document.getElementById("reward-name").innerText = rewardData.name;
