@@ -591,6 +591,153 @@ main {
 	}
 }
 
+.tech-tree {
+	background-color: #0041BA;
+	background-image:
+		linear-gradient(90deg, rgba(255, 255, 255, 0.4) 1.5px, transparent 1.5px),
+		linear-gradient(rgba(255, 255, 255, 0.4) 1.5px, transparent 1.5px),
+		linear-gradient(90deg, rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+		linear-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px);
+	background-size: 50px 50px, 50px 50px, 10px 10px, 10px 10px;
+	border-radius: 1rem;
+	border: 1px solid var(--border);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow-x: auto;
+
+	& > .nodes {
+		display: grid;
+		z-index: 2;
+		grid-template: 1fr / repeat(var(--c), 48px);
+		gap: 3rem;
+		height: 100%;
+		width: max-content;
+		max-width: 100%;
+		margin-inline: auto;
+
+		& > div {
+			display: flex;
+			flex-direction: column;
+			justify-content: space-around;
+			gap: 5rem;
+			grid-column: var(--y);
+
+			& > div {
+				cursor: pointer;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				position: relative;
+
+				& > img {
+					height: 48px;
+					width: 48px;
+					aspect-ratio: 1 / 1;
+					object-fit: cover;
+					border-radius: 50%;
+					overflow: hidden;
+					background: white;
+				}
+
+				& > span {
+					position: absolute;
+					bottom: 0;
+					right: 0;
+					height: 1lh;
+					aspect-ratio: 1 / 1;
+
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					background: white;
+					border-radius: 50%;
+				}
+
+				&[hidden] {
+					opacity: 0;
+					pointer-events: none;
+				}
+			}
+		}
+	}
+
+	& > .connections > span {
+		position: absolute;
+		pointer-events: none;
+		z-index: 1;
+
+		left: anchor(var(--from) right);
+		right: anchor(var(--to) left);
+
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+
+		&.down {
+			top: anchor(var(--from) center);
+			bottom: anchor(var(--to) center);
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M 0 0 C 50 0, 50 100, 100 100' stroke='%23fffc' stroke-width='3' fill='none' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
+		}
+
+		&.up {
+			top: anchor(var(--to) center);
+			bottom: anchor(var(--from) center);
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M 0 100 C 50 100, 50 0, 100 0' stroke='%23fffc' stroke-width='3' fill='none' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
+		}
+
+		&.straight {
+			/* Doesn't matter */
+			top: anchor(var(--to) center);
+			min-height: 3px;
+			background: #fffc;
+			transform: translateY(-50%);
+		}
+	}
+
+	& > .tooltip {
+		position: fixed;
+		position-anchor: var(--node);
+		left: anchor(right);
+		top: anchor(center);
+		z-index: 2;
+
+		transform: translateY(-50%);
+		background: var(--bg-color);
+		margin-left: 0.5rem;
+		color: white;
+		padding: 1rem;
+		border-radius: 1rem;
+
+		& > header {
+			display: flex;
+			gap: 1rem;
+			align-items: center;
+			border-bottom: 3px solid var(--border-color);
+
+			& > img {
+				height: 48px;
+				width: 48px;
+				flex-shrink: 0;
+				object-fit: cover;
+				border-radius: 50%;
+				background: white;
+				overflow: hidden;
+			}
+
+			& > hgroup > h1 {
+				margin: 0;
+				font-size: 1.2rem;
+				width: 12rem;
+			}
+
+			& > hgroup > p {
+				font-size: 0.8rem;
+				margin-top: 4px;
+			}
+		}
+	}
+}
+
 @keyframes l1 {to{transform: rotate(.5turn)}}
 @keyframes violent-shake {
 	10%, 90% { transform: translate3d(-3px, 0, 0) rotate(-2deg); }
@@ -598,11 +745,9 @@ main {
 	50% { transform: translate3d(6px, -3px, 0) rotate(5deg); scale: 1.2; }
 	100% { transform: scale(1.25); }
 }
-
 @keyframes box-shatter {
 	to { transform: scale(0); opacity: 0; }
 }
-
 @keyframes card-snap {
 	to { opacity: 1; transform: scale(1) rotate(0deg); }
 }

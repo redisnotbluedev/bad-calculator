@@ -30,7 +30,7 @@ listen(() => {
 
 		if (value >= data.condition.minimum) {
 			state.achievements.push(id);
-			showAchievement("/trophy.jpg", data.title, data.description, data.hidden || false);
+			showAchievement("/images/trophy.jpg", data.title, data.description, data.hidden || false);
 			data.rewards.forEach(r => dispatchStateSetter(r, state));
 		}
 	});
@@ -45,7 +45,7 @@ function renderAchievements() {
 		const hidden = data.hidden || false;
 		const locked = !owned && hidden
 		if (hidden) achievement.className = "purple";
-		achievement.innerHTML = `<img src="${owned ? "/trophy.jpg" : "/locked.jpg"}"><div><img src="${owned ? "/trophy.jpg" : "/locked.jpg"}"><hgroup><h1>${locked ? "???" : data.title}</h1><p>${locked ? "Hidden achievement" : data.description}</p></hgroup></div>`;
+		achievement.innerHTML = `<img src="${owned ? "/images/trophy.jpg" : "/images/locked.jpg"}"><div><img src="${owned ? "/images/trophy.jpg" : "/images/locked.jpg"}"><hgroup><h1>${locked ? "???" : data.title}</h1><p>${locked ? "Hidden achievement" : data.description}</p></hgroup></div>`;
 		achievements.appendChild(achievement);
 	})
 }

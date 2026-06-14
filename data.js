@@ -274,154 +274,221 @@ export const LOOTBOXES = {
 }
 
 export const TECH_TREE = {
+	// Layer 1
 	advancedMathematics: {
 		name: "Advanced Mathematics",
-		description: "You have learned that numbers go higher than 10",
+		icon: "/images/maths.png",
+		description: "You've learned that numbers go higher than 10.",
 		cost: { type: "add", path: "xp", value: -100 },
 		parents: [],
 		rewards: [{ type: "none" }]
 	},
-	shuffle2s: {
-		name: "Shuffle Interval II",
-		description: "Buttons now shuffle every 2 seconds. A small mercy.",
-		cost: { type: "add", path: "xp", value: -500 },
+	// Layer 2
+	clippy: {
+		name: "Clippy",
+		icon: "/images/clippy.webp",
+		description: "It looks like you're trying to unlock Clippy. Would you like help with that?",
+		cost: { type: "add", path: "xp", value: -150 },
 		parents: ["advancedMathematics"],
-		rewards: [{ type: "set", path: "upgrades.shuffleTime", value: 2000 }]
+		rewards: [{ type: "set", path: "clippy", value: true }]
+	},
+	money1: {
+		name: "MathBux Boost",
+		icon: "/images/coin.jpg",
+		level: "I",
+		description: "Increase MathBux earnings by 25%.",
+		cost: { type: "add", path: "xp", value: -150 },
+		parents: ["advancedMathematics"],
+		rewards: [{ type: "set", path: "upgrades.moneyMultiplier", value: 1.25 }]
+	},
+	// Layer 3
+	xpBoost1: {
+		name: "XP Boost",
+		icon: "/images/xp.jpg",
+		level: "I",
+		description: "Earn 25% more XP per calculation. Compounding returns on suffering.",
+		cost: { type: "add", path: "xp", value: -200 },
+		parents: ["clippy"],
+		rewards: [{ type: "add", path: "upgrades.xpMultiplier", value: 0.25 }]
 	},
 	unlockMinus: {
 		name: "Unlock −",
+		icon: "/images/maths.png",
 		description: "Subtraction. You're welcome.",
-		cost: { type: "add", path: "xp", value: -800 },
-		parents: ["shuffle2s"],
+		cost: { type: "add", path: "xp", value: -200 },
+		parents: ["clippy"],
 		rewards: [{ type: "push", path: "buttons", value: "−" }]
 	},
-	xpBoost1: {
-		name: "XP Boost I",
-		description: "Earn 25% more XP per calculation. Compounding returns on suffering.",
-		cost: { type: "add", path: "xp", value: -400 },
-		parents: ["advancedMathematics"],
-		rewards: [{ type: "add", path: "upgrades.xpMultiplier", value: 0.25 }]
+	// Layer 4
+	riggedWheel1: {
+		name: "Rigged Wheel",
+		icon: "/images/rigged.png",
+		level: "I",
+		description: "Chance of hitting 'Nothing' halves. Marginally less hopeless.",
+		cost: { type: "add", path: "xp", value: -1200 },
+		parents: ["xpBoost1"],
+		rewards: [{ type: "add", path: "upgrades.gambleNothingWeight", value: 1 }]
+	},
+	shuffle2s: {
+		name: "Shuffle Interval",
+		icon: "/images/shuffle.jpg",
+		level: "I",
+		description: "Buttons now shuffle every 2 seconds. A small mercy.",
+		cost: { type: "add", path: "xp", value: -200 },
+		parents: ["xpBoost1"],
+		rewards: [{ type: "set", path: "upgrades.shuffleTime", value: 2000 }]
 	},
 	unlockMultiply: {
 		name: "Unlock ×",
+		icon: "/images/maths.png",
 		description: "Multiplication. Things are getting serious.",
-		cost: { type: "add", path: "xp", value: -300 },
-		parents: ["xpBoost1"],
+		cost: { type: "add", path: "xp", value: -350 },
+		parents: ["unlockMinus"],
 		rewards: [{ type: "push", path: "buttons", value: "×" }]
 	},
-	unlockDivide: {
-		name: "Unlock ÷",
-		description: "Division. Finally, a complete arithmetic experience. Almost.",
-		cost: { type: "add", path: "xp", value: -600 },
-		parents: ["unlockMinus", "unlockMultiply"],
-		parentMergePolicy: "and",
-		rewards: [{ type: "push", path: "buttons", value: "÷" }]
-	},
-	unlockParens: {
-		name: "Unlock ( )",
-		description: "Parentheses. For the mathematically adventurous.",
-		cost: { type: "add", path: "xp", value: -400 },
-		parents: ["unlockDivide"],
-		rewards: [{ type: "push", path: "buttons", value: "(" }]
-	},
-	unlockPercent: {
-		name: "Unlock %",
-		description: "Percent. As useful as it is elusive.",
-		cost: { type: "add", path: "xp", value: -500 },
-		parents: ["unlockParens"],
-		rewards: [{ type: "push", path: "buttons", value: "%" }]
-	},
-	clippy: {
-		name: "Clippy",
-		description: "It looks like you're trying to unlock Clippy. Would you like help with that?",
-		cost: { type: "add", path: "xp", value: -600 },
-		parents: ["unlockPercent"],
-		rewards: [{ type: "set", path: "clippy", value: true }]
+	// Layer 5
+	riggedWheel2: {
+		name: "Rigged Wheel",
+		icon: "/images/rigged.png",
+		level: "II",
+		description: "Chance of hitting 'Nothing' halves again. Finally, decent odds.",
+		cost: { type: "add", path: "xp", value: -2000 },
+		parents: ["riggedWheel1"],
+		rewards: [{ type: "add", path: "upgrades.gambleNothingWeight", value: 1 }]
 	},
 	premiumMember: {
 		name: "Premium Member",
+		icon: "/images/premium.jpg",
 		description: "Your save data now syncs in 0.5 seconds instead of 2. Worth every XP.",
-		cost: { type: "add", path: "xp", value: -800 },
-		parents: ["clippy"],
+		cost: { type: "add", path: "xp", value: -350 },
+		parents: ["shuffle2s"],
+		parentMergePolicy: "and",
 		rewards: [{ type: "set", path: "upgrades.tabLoadTime", value: 500 }]
 	},
+	unlockDivide: {
+		name: "Unlock ÷",
+		icon: "/images/maths.png",
+		description: "Division. Finally, a complete arithmetic experience. Almost.",
+		cost: { type: "add", path: "xp", value: -450 },
+		parents: ["unlockMultiply", "shuffle2s"],
+		parentMergePolicy: "and",
+		rewards: [{ type: "push", path: "buttons", value: "÷" }]
+	},
+	// Layer 6
+	xpBoost2: {
+		name: "XP Boost",
+		icon: "/images/xp.jpg",
+		level: "II",
+		description: "Earn another 25% more XP. The grind respects the grind.",
+		cost: { type: "add", path: "xp", value: -1000 },
+		parents: ["riggedWheel1", "premiumMember"],
+		parentMergePolicy: "and",
+		rewards: [{ type: "add", path: "upgrades.xpMultiplier", value: 0.25 }]
+	},
 	captchaFilter1: {
-		name: "Captcha Filter I",
+		name: "Captcha Filter",
+		icon: "/images/captcha.png",
+		level: "I",
 		description: "15% chance to auto-solve CAPTCHAs. The algorithm is learning.",
 		cost: { type: "add", path: "xp", value: -1000 },
 		parents: ["premiumMember"],
 		rewards: [{ type: "set", path: "upgrades.captchaSkipChance", value: 0.15 }]
 	},
 	shuffle5s: {
-		name: "Shuffle Interval V",
+		name: "Shuffle Interval",
+		icon: "/images/shuffle.jpg",
+		level: "II",
 		description: "Buttons now shuffle every 5 seconds. You can almost think.",
 		cost: { type: "add", path: "xp", value: -1200 },
-		parents: ["unlockDivide"],
+		parents: ["premiumMember", "unlockDivide"],
+		parentMergePolicy: "and",
 		rewards: [{ type: "set", path: "upgrades.shuffleTime", value: 5000 }]
 	},
-	xpBoost2: {
-		name: "XP Boost II",
-		description: "Earn another 25% more XP. The grind respects the grind.",
-		cost: { type: "add", path: "xp", value: -1000 },
-		parents: ["shuffle5s"],
-		rewards: [{ type: "add", path: "upgrades.xpMultiplier", value: 0.25 }]
+	unlockPercent: {
+		name: "Unlock %",
+		icon: "/images/maths.png",
+		description: "Percent. As useful as it is elusive.",
+		cost: { type: "add", path: "xp", value: -700 },
+		parents: ["unlockDivide"],
+		rewards: [{ type: "push", path: "buttons", value: "%" }]
 	},
-	riggedWheel1: {
-		name: "Rigged Wheel I",
-		description: "The wheel is now slightly less rigged. We said slightly.",
-		cost: { type: "add", path: "xp", value: -1200 },
-		parents: ["xpBoost2"],
-		rewards: [{ type: "add", path: "upgrades.gambleLuck", value: 1 }]
-	},
-	riggedWheel2: {
-		name: "Rigged Wheel II",
-		description: "The wheel is now moderately rigged in your favour. Don't tell anyone.",
+	// Layer 7
+	heavyWheel1: {
+		name: "Heavy Wheel",
+		icon: "/images/heavy_wheel.png",
+		level: "I",
+		description: "The wheel's so heavy! It spins for half as long.",
 		cost: { type: "add", path: "xp", value: -2000 },
-		parents: ["riggedWheel1"],
-		rewards: [{ type: "add", path: "upgrades.gambleLuck", value: 1 }]
-	},
-	shuffle15s: {
-		name: "Shuffle Interval XV",
-		description: "Buttons shuffle every 15 seconds. Almost tolerable.",
-		cost: { type: "add", path: "xp", value: -3000 },
-		parents: ["captchaFilter1", "riggedWheel2"],
+		parents: ["xpBoost2", "captchaFilter1"],
 		parentMergePolicy: "and",
-		rewards: [{ type: "set", path: "upgrades.shuffleTime", value: 15000 }]
+		rewards: [{ type: "set", path: "upgrades.gambleSpins", value: 3 }]
+	},
+	captchaFilter2: {
+		name: "Captcha Filter",
+		icon: "/images/captcha.png",
+		level: "II",
+		description: "40% chance to auto-solve CAPTCHAs. The algorithm has ascended.",
+		cost: { type: "add", path: "xp", value: -2000 },
+		parents: ["captchaFilter1"],
+		rewards: [{ type: "set", path: "upgrades.captchaSkipChance", value: 0.40 }]
+	},
+	unlockParens: {
+		name: "Unlock ( )",
+		icon: "/images/maths.png",
+		description: "Parentheses. For the mathematically adventurous.",
+		cost: { type: "add", path: "xp", value: -550 },
+		parents: ["unlockPercent", "shuffle5s"],
+		parentMergePolicy: "and",
+		rewards: [{ type: "push", path: "buttons", value: "(" }]
+	},
+	// Layer 8
+	heavyWheel2: {
+		name: "Heavy Wheel",
+		icon: "/images/heavy_wheel.png",
+		level: "II",
+		description: "Spinning the wheel is so hard we're basically just giving up.",
+		cost: { type: "add", path: "xp", value: -4000 },
+		parents: ["heavyWheel1", "riggedWheel2"],
+		parentMergePolicy: "add",
+		rewards: [{ type: "set", path: "upgrades.gamble", value: 1 }]
 	},
 	unlockSqrt: {
 		name: "Unlock √",
+		icon: "/images/maths.png",
 		description: "Square root. You've earned this.",
 		cost: { type: "add", path: "xp", value: -800 },
-		parents: ["shuffle15s"],
+		parents: ["unlockParens", "heavyWheel1"],
+		parentMergePolicy: "add",
 		rewards: [{ type: "push", path: "buttons", value: "√" }]
 	},
-	heavyWheel1: {
-		name: "Heavy Wheel I",
-		description: "Chance of hitting 'Nothing' halves. Marginally less hopeless.",
-		cost: { type: "add", path: "xp", value: -2000 },
-		parents: ["unlockSqrt"],
-		rewards: [{ type: "set", path: "upgrades.gambleNothingWeight", value: 11 }]
+	shuffle15s: {
+		name: "Shuffle Interval",
+		icon: "/images/shuffle.jpg",
+		level: "III",
+		description: "Buttons shuffle every 15 seconds. Almost tolerable.",
+		cost: { type: "add", path: "xp", value: -3000 },
+		parents: ["captchaFilter2", "unlockParens"],
+		rewards: [{ type: "set", path: "upgrades.shuffleTime", value: 15000 }]
 	},
-	captchaFilter2: {
-		name: "Captcha Filter II",
-		description: "40% chance to auto-solve CAPTCHAs. The algorithm has ascended.",
-		cost: { type: "add", path: "xp", value: -2000 },
-		parents: ["unlockSqrt"],
-		rewards: [{ type: "set", path: "upgrades.captchaSkipChance", value: 0.40 }]
-	},
-	heavyWheel2: {
-		name: "Heavy Wheel II",
-		description: "Chance of hitting 'Nothing' halves again. Finally, decent odds.",
-		cost: { type: "add", path: "xp", value: -4000 },
-		parents: ["heavyWheel1", "captchaFilter2"],
-		parentMergePolicy: "and",
-		rewards: [{ type: "set", path: "upgrades.gambleNothingWeight", value: 6 }]
+	// Layer 9
+	mathbux2: {
+		name: "MathBux Boost",
+		icon: "/images/coin.jpg",
+		level: "II",
+		description: "MONEY MONEY MONEY MONEY MONEY",
+		cost: { type: "add", path: "xp", value: -5000 },
+		parents: ["shuffle15s", "heavyWheel2", "unlockSqrt"],
+		parentMergePolicy: "add",
+		rewards: [{ type: "set", path: "upgrades.moneyMultiplier", value: 2 }]
 	},
 	shuffle30s: {
-		name: "Shuffle Interval XXX",
+		name: "Shuffle Interval",
+		icon: "/images/shuffle.jpg",
+		level: "IV",
 		description: "Buttons shuffle every 30 seconds. This is as good as it gets. We're sorry.",
 		cost: { type: "add", path: "xp", value: -8000 },
-		parents: ["heavyWheel2"],
+		parents: ["mathbux2"],
+		parentMergePolicy: "add",
 		rewards: [{ type: "set", path: "upgrades.shuffleTime", value: 30000 }]
 	}
 };

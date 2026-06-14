@@ -28,28 +28,32 @@
 				</div>
 				<ol class="logs" id="logs"></ol>
 				<div class="lootbox" id="lootbox">
-					<img src="/lootbox.png" id="lootboxImg">
+					<img src="/images/lootbox.png" id="lootboxImg">
 					<div class="reward-card" id="reward-card">
 						<div class="rarity" id="reward-rarity">Legendary</div>
-						<img src="/item.jpg">
+						<img src="/images/item.jpg">
 						<div class="name" id="reward-name">Epic Sword</div>
 					</div>
 				</div>
 			</div>
-			<div class="tech" id="tech"></div>
+			<div class="tech-tree" id="tech-tree">
+				<div id="tree-nodes" class="nodes"></div>
+				<div id="connections" class="connections"></div>
+				<div id="tooltip" class="tooltip" hidden></div>
+			</div>
 			<div class="achievements" id="achievements"></div>
 		</main>
 
 		<button class="left">←</button>
 		<button class="right">→</button>
 		<div class="toolbar">
-			<span id="money"><img src="/coin.jpg">0</span>
+			<span id="money">Loading</span>
 			<span id="scene">Calculator</span>
-			<span id="xp"><img src="/xp.jpg">0</span>
+			<span id="xp">Loading</span>
 		</div>
 
 		<div class="loading-overlay hidden" id="loading-overlay">
-			<img src="./calculator.jpg">
+			<img src="/images/calculator.jpg">
 			<div class="corner">
 				<p>Saving...</p>
 				<div class="loader"></div>

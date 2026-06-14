@@ -15,10 +15,11 @@ export const state = new Proxy(JSON.parse(localStorage.getItem("userSessionData"
 	upgrades: {
 		moneyMultiplier: 1.0,
 		xpMultiplier: 1.0,
-		gambleLuck: 1.0,
+		gambleNothingWeight: 23,
+		gambleSpins: 5,
 		captchaSkipChance: 0.0,
 		shuffleTime: 1000,
-		tabLoadTime: 2000
+		tabLoadTime: 2000,
 	},
 	calculations: 0,
 	calculationFails: 0,

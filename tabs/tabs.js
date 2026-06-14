@@ -12,7 +12,7 @@ const kawarp = new Kawarp(bg, {
 	intensity: 0.5
 });
 
-kawarp.loadImage("/sunset.jpg");
+kawarp.loadImage("/images/sunset.jpg");
 kawarp.start();
 window.addEventListener("resize", () => {
 	kawarp.resize();
@@ -59,8 +59,8 @@ screens.addEventListener("scrollend", () => {
 });
 
 function updateBalances() {
-	moneyLabel.innerHTML = `<img src="/coin.jpg">${state.money}`;
-	xpLabel.innerHTML = `<img src="/xp.jpg">${state.xp}`;
+	moneyLabel.innerHTML = `<img src="/images/coin.jpg">${state.money}`;
+	xpLabel.innerHTML = `<img src="/images/xp.jpg">${state.xp}`;
 }
 
 updateBalances()

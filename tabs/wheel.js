@@ -49,7 +49,7 @@ function spinWheel() {
 	const sliceCenterPercent = ((accumulatedWeight + (result.prize.weight / 2)) / totalWeight) * 100;
 	const sliceCenterDegrees = (sliceCenterPercent / 100) * 360;
 	const targetDegrees = (360 - sliceCenterDegrees + 90) % 360;
-	const extraSpins = 5 * 360;
+	const extraSpins = state.upgrades.gambleSpins * 360;
 
 	const currentHeading = currentRotation % 360;
 	let degreesToMove = targetDegrees - currentHeading;
