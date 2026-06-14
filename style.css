@@ -702,6 +702,10 @@ main {
 			background-size: 20px 100%;
 			background-repeat: repeat-x;
 			transform: translateY(-50%);
+
+			&.owned {
+				background: #fffc;
+			}
 		}
 	}
 

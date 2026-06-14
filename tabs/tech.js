@@ -74,7 +74,7 @@ function render() {
 			</header>
 			<dl>
 				<dt>Cost</dt>
-				<dd ${canAfford ? "" : `style="color:indianred"`}>${data.cost.value * -1 + " " + data.cost.path.toUpperCase()}</dt>
+				<dd ${canAfford ? "" : `style="color:indianred"`}>${data.cost.value * -1 + " " + data.cost.path.toUpperCase()}</dd>
 				<dt>Requires</dt>
 				<dd>${(data.parents).map(n => {
 					const node = TECH_TREE[n];
