@@ -1,6 +1,6 @@
 import { SHOP } from "/data.js";
 import { state, listen } from "/state.js";
-import { dispatchStateSetter, toTitleCase } from "/utils.js";
+import { dispatchStateSetter, reducePath, toTitleCase } from "/utils.js";
 
 const shop = document.getElementById("shop");
 let tabIndex = 0;
@@ -25,7 +25,6 @@ function renderShop() {
 			}
 		});
 
-
 		page.innerHTML = `<h1>Items</h1>`;
 		page.appendChild(entries)
 		shop.appendChild(page);
@@ -33,8 +32,8 @@ function renderShop() {
 		Object.entries(items).forEach(([id, data]) => {
 			const entry = document.createElement("div");
 			const button = document.createElement("button");
-			const price = { dummy: "$", money: `<img src="/coin.jpg">` }[data.cost.unit] + data.cost.value;
-			const canBuy = data.cost.unit === "money" && state.money >= data.cost.value && !(state.owned.includes(`shop.${category}.${id}`) && data.unique);
+			const price = { dummy: "$", money: `<img src="/coin.jpg">` }[data.cost.path] + Math.abs(data.cost.value);
+			const canBuy = data.cost.path !== "dummy" && reducePath(data.cost.path, state) >= Math.abs(data.cost.value) && !(state.owned.includes(`shop.${category}.${id}`) && data.unique);
 
 			if (!canBuy) entry.className = "red";
 			entry.innerHTML = `<h2>${data.title}</h2><p>${data.description}</p>`;
@@ -42,7 +41,7 @@ function renderShop() {
 
 			button.addEventListener("click", () => {
 				if (canBuy) {
-					state.money -= data.cost.value;
+					dispatchStateSetter(data.cost, state);
 					state.owned.push(`shop.${category}.${id}`);
 					dispatchStateSetter(data.value, state);
 				}

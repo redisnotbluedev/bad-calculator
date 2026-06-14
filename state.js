@@ -25,7 +25,7 @@ export const state = new Proxy(JSON.parse(localStorage.getItem("userSessionData"
 	moneySpent: 0,
 	gambleFailStreak: 0,
 	gambleRounds: 0,
-	tutorial: false,
+	clippy: false,
 	start: new Date()
 }), (_, value) => {
 	return typeof value === "string" && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/.test(value) ? new Date(value) : value;
