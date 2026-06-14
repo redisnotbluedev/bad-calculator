@@ -25,6 +25,10 @@ export function dispatchStateSetter(value, state) {
 	if (!value || !value.type || !value.path || !value.value) return;
 
 	switch (value.type) {
+		case "set": {
+			updatePath(value.path, state, value.value);
+			break;
+		}
 		case "add": {
 			updatePath(value.path, state, v => v + value.value);
 			break;
@@ -49,6 +53,21 @@ export function dispatchStateSetter(value, state) {
 			break;
 		}
 	}
+}
+
+export function serializeStateSetter(setter, state) {
+	if (setter.type === "none") return "Nothing";
+
+	const stat = toTitleCase(setter.path.replaceAll("upgrades.", "").replaceAll(/[A-Z]/g, m => " " + m.toLowerCase())).replaceAll(/xp/gi, "XP");
+	let value = setter.value;
+	if (value === true) value = "On";
+	if (value === false) value = "Off";
+
+	if (setter.type === "add") return `${stat} → ${reducePath(setter.path, state) + value}`;
+	if (setter.type === "multiply") return `${stat} → ${reducePath(setter.path, state) * value}`;
+	if (setter.type === "set") return `${stat} → ${value}`;
+	if (setter.type === "push") return `Get ${value}`;
+	if (setter.type === "pop") return `Lose ${value}`;
 }
 
 export function toTitleCase(str) {

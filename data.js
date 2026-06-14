@@ -327,7 +327,7 @@ export const TECH_TREE = {
 		description: "Chance of hitting 'Nothing' halves. Marginally less hopeless.",
 		cost: { type: "add", path: "xp", value: -1200 },
 		parents: ["xpBoost1"],
-		rewards: [{ type: "add", path: "upgrades.gambleNothingWeight", value: 1 }]
+		rewards: [{ type: "set", path: "upgrades.nothingWeight", value: 12 }]
 	},
 	shuffle2s: {
 		name: "Shuffle Interval",
@@ -354,7 +354,7 @@ export const TECH_TREE = {
 		description: "Chance of hitting 'Nothing' halves again. Finally, decent odds.",
 		cost: { type: "add", path: "xp", value: -2000 },
 		parents: ["riggedWheel1"],
-		rewards: [{ type: "add", path: "upgrades.gambleNothingWeight", value: 1 }]
+		rewards: [{ type: "set", path: "upgrades.nothingWeight", value: 6 }]
 	},
 	premiumMember: {
 		name: "Premium Member",
@@ -419,9 +419,9 @@ export const TECH_TREE = {
 		level: "I",
 		description: "The wheel's so heavy! It spins for half as long.",
 		cost: { type: "add", path: "xp", value: -2000 },
-		parents: ["xpBoost2", "captchaFilter1"],
+		parents: ["xpBoost2", "captchaFilter1", "riggedWheel2"],
 		parentMergePolicy: "and",
-		rewards: [{ type: "set", path: "upgrades.gambleSpins", value: 3 }]
+		rewards: [{ type: "set", path: "upgrades.rotations", value: 3 }]
 	},
 	captchaFilter2: {
 		name: "Captcha Filter",
@@ -448,9 +448,9 @@ export const TECH_TREE = {
 		level: "II",
 		description: "Spinning the wheel is so hard we're basically just giving up.",
 		cost: { type: "add", path: "xp", value: -4000 },
-		parents: ["heavyWheel1", "riggedWheel2"],
+		parents: ["heavyWheel1"],
 		parentMergePolicy: "add",
-		rewards: [{ type: "set", path: "upgrades.gamble", value: 1 }]
+		rewards: [{ type: "set", path: "upgrades.rotations", value: 1 }]
 	},
 	unlockSqrt: {
 		name: "Unlock √",

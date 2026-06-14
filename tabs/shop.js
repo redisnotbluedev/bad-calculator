@@ -33,7 +33,7 @@ function renderShop() {
 			const entry = document.createElement("div");
 			const button = document.createElement("button");
 			const price = { dummy: "$", money: `<img src="/images/coin.jpg">` }[data.cost.path] + Math.abs(data.cost.value);
-			const canBuy = data.cost.path !== "dummy" && reducePath(data.cost.path, state) >= Math.abs(data.cost.value) && !(state.owned.includes(`shop.${category}.${id}`) && data.unique);
+			const canBuy = data.cost.path !== "dummy" && reducePath(data.cost.path, state) >= -1 * data.cost.value && !(state.owned.includes(`shop.${category}.${id}`) && data.unique);
 
 			if (!canBuy) entry.className = "red";
 			entry.innerHTML = `<h2>${data.title}</h2><p>${data.description}</p>`;
