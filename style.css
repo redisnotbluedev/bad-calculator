@@ -410,6 +410,86 @@ main {
 	&:has(aside > label:nth-of-type(4) input:checked) > div:nth-of-type(4) { display: block; }
 }
 
+.challenges {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: 1fr max-content;
+	gap: 2rem;
+	color: white;
+
+	& > div {
+		border-radius: 0.5rem;
+		border: 1px solid var(--border-color);
+		padding: 1rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+
+		& > h1 {
+			margin: 0;
+			font-size: 1.3rem;
+			text-align: center;
+			padding-bottom: 0.5rem;
+			border-bottom: 1px solid var(--border-color);
+		}
+
+		& > label {
+			display: block;
+			font-size: 1.1rem;
+		}
+
+		& > progress {
+			appearance: none;
+			height: 1.5rem;
+			width: 100%;
+			border-radius: 0.5rem;
+			border: none;
+
+			&::-webkit-progress-bar {
+				background-color: #eee;
+				border-radius: 4px;
+			}
+
+			&::-webkit-progress-value {
+				background-color: #007bff;
+				border-radius: 4px;
+			}
+
+			&::-moz-progress-bar {
+				background-color: #007bff;
+				border-radius: 4px;
+			}
+		}
+
+		& > div {
+			padding: 1rem;
+
+			& > h2 {
+				font-size: 1.2rem;
+				margin: 0;
+			}
+
+			& > ul {
+				margin: 0;
+			}
+		}
+	}
+
+	& > footer {
+		grid-column: span 3;
+		justify-self: center;
+		min-width: calc((100% - 4rem) / 3);
+		padding: 2rem;
+		border: 1px solid var(--border-color);
+		border-radius: 0.5rem;
+
+		& > h1 {
+			font-size: 1.2rem;
+			margin: 0;
+		}
+	}
+}
+
 .lucky-wheel {
 	anchor-scope: --wheel;
 	display: flex;
@@ -751,27 +831,6 @@ main {
 			}
 		}
 
-		& > dl {
-			display: grid;
-			grid-template-columns: max-content 1fr;
-			margin: 0.5rem 0;
-			column-gap: 0.25rem;
-
-			& > dt,
-			& > dd {
-				margin: 0;
-			}
-
-			& > dd {
-				justify-self: end;
-				text-align: right;
-
-				& > span {
-					white-space: pre;
-				}
-			}
-		}
-
 		& > button {
 			width: 100%;
 			border-radius: 0.5rem;
@@ -793,6 +852,27 @@ main {
 			&.unlocked {
 				background: lightgrey;
 			}
+		}
+	}
+}
+
+dl {
+	display: grid;
+	grid-template-columns: max-content 1fr;
+	margin: 0.5rem 0;
+	column-gap: 0.25rem;
+
+	& > dt,
+	& > dd {
+		margin: 0;
+	}
+
+	& > dd {
+		justify-self: end;
+		text-align: right;
+
+		& > span {
+			white-space: pre;
 		}
 	}
 }

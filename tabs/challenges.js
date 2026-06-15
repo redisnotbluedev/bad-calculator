@@ -1,6 +1,7 @@
 import { CHALLENGES } from "/data.js";
 import { state, listen } from "/state.js";
-import { reducePath, serializeStateSetter, getRandomElement, delta } from "/utils.js";
+import { reducePath, dispatchStateSetter, serializeStateSetter, getRandomElement, delta, toast } from "/utils.js";
+import { moveTo } from "./tabs.js";
 
 const challenges = document.getElementById("challenges");
 
@@ -73,10 +74,32 @@ function render() {
 			<progress id="challenge-status-${i}" max="100" value="${progress}"></progress>
 			<div>
 				<h2>Reward(s)</h2>
-				<p>${c.rewards.map(r => serializeStateSetter(r, state)).join("\n")}</p>
+				<ul>${c.rewards.map(r => `<li>${serializeStateSetter(r, state)}</li>`).join("")}</ul>
 			</div>
-		</div>`
+		</div>`;
+
+		if (progress === 100) {
+			state.challenges.splice(i, 1);
+			state.stats.challenges += 1;
+			c.rewards.forEach(r => {
+				if (r.path === "xp") state.stats.challengeXp += r.value;
+				if (r.path === "money") state.stats.challengeMoney += r.value;
+				dispatchStateSetter(r, state);
+			});
+			toast(null, "Challenge Complete!", c.description, false, () => moveTo("challenges"));
+		}
 	});
+	challenges.innerHTML += `<footer>
+		<h1>Your Stats</h1>
+		<dl>
+			<dt>Challenges Completed</dt>
+			<dd>${state.stats.challenges}</dd>
+			<dt>Total MathBux Earned</dt>
+			<dd>${state.stats.challengeMoney}</dd>
+			<dt>Total XP Earned</dt>
+			<dd>${state.stats.challengeXp}</dd>
+		</dl>
+	</footer>`;
 }
 
 render();

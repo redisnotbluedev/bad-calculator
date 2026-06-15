@@ -1,3 +1,5 @@
+const toastContainer = document.getElementById("toast");
+
 export function reducePath(path, object) {
 	return path.split(".").reduce((current, key) => {
 		return (current !== null && current !== undefined) ? current[key] : undefined;
@@ -111,4 +113,19 @@ export function delta(before, after) {
 	}
 	return result;
 
+}
+
+export function toast(icon, title, description, purple, onclick) {
+	const button = document.createElement("button");
+	if (purple) button.className = "purple";
+	button.innerHTML = `${icon ? `<img src="${icon}">` : ""}<hgroup><h1>${title}</h1><p>${description}</p></hgroup>`;
+	button.style.transform = "translateY(-100%)";
+	button.addEventListener("click", onclick);
+	toastContainer.appendChild(button);
+	button.offsetHeight; // force a reflow
+	button.style.transform = "";
+	setTimeout(() => {
+		button.style.transform = "translateY(-100%)"
+		setTimeout(() => button.remove(), 200);
+	}, 4000);
 }

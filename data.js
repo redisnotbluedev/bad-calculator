@@ -29,19 +29,19 @@ export const ACHIEVEMENTS = {
 	calculations1: {
 		title: "First Steps",
 		description: "Complete your first calculation",
-		condition: { value: "calculations", "minimum": 1 },
+		condition: { value: "stats.calculations", "minimum": 1 },
 		rewards: [{ type: "add", path: "money", value: 50 }]
 	},
 	calculations10: {
 		title: "Getting Somewhere",
 		description: "Complete 10 calculations",
-		condition: { value: "calculations", "minimum": 10 },
+		condition: { value: "stats.calculations", "minimum": 10 },
 		rewards: [{ type: "push", path: "buttons", value: "2" }]
 	},
 	calculations50: {
 		title: "Dedicated",
 		description: "Complete 50 calculations",
-		condition: { value: "calculations", "minimum": 50 },
+		condition: { value: "stats.calculations", "minimum": 50 },
 		rewards: [
 			{ type: "add", path: "money", value: 200 },
 			{ type: "add", path: "xp", value: 300 }
@@ -50,7 +50,7 @@ export const ACHIEVEMENTS = {
 	calculations100: {
 		title: "Obsessed",
 		description: "Complete 100 calculations",
-		condition: { value: "calculations", "minimum": 100 },
+		condition: { value: "stats.calculations", "minimum": 100 },
 		rewards: [
 			{ type: "add", path: "money", value: 300 },
 			{ type: "add", path: "xp", value: 300 }
@@ -59,7 +59,7 @@ export const ACHIEVEMENTS = {
 	calculations250: {
 		title: "Carpal Tunnel",
 		description: "Complete 250 calculations",
-		condition: { value: "calculations", "minimum": 250 },
+		condition: { value: "stats.calculations", "minimum": 250 },
 		rewards: [
 			{ type: "push", path: "buttons", value: "8" }
 		]
@@ -67,7 +67,7 @@ export const ACHIEVEMENTS = {
 	calculations500: {
 		title: "Why Are You Still Here",
 		description: "Seriously, go touch some grass",
-		condition: { value: "calculations", "minimum": 500 },
+		condition: { value: "stats.calculations", "minimum": 500 },
 		rewards: [
 			{ type: "add", path: "money", value: 600 },
 			{ type: "add", path: "xp", value: 600 }
@@ -77,13 +77,13 @@ export const ACHIEVEMENTS = {
 	money1: {
 		title: "Spender",
 		description: "Spend any value of MathBux",
-		condition: { value: "moneySpent", "minimum": 1 },
+		condition: { value: "stats.moneySpent", "minimum": 1 },
 		rewards: [{ type: "add", path: "money", value: 25 }]
 	},
 	money1000: {
 		title: "High Roller",
 		description: "Spend 1,000 MathBux",
-		condition: { value: "moneySpent", "minimum": 1000 },
+		condition: { value: "stats.moneySpent", "minimum": 1000 },
 		rewards: [{ type: "add", path: "money", value: 100 }]
 	},
 	lucky: {
@@ -94,8 +94,8 @@ export const ACHIEVEMENTS = {
 	},
 	unlucky: {
 		title: "Unlucky",
-		description: "Lose on the Lucky Wheel 10 times in a row",
-		condition: { value: "gambleFailStreak", "minimum": 10 },
+		description: "Get 'Nothing' on the Lucky Wheel 10 times",
+		condition: { value: "stats.gambleFails", "minimum": 10 },
 		rewards: [{ type: "add", path: "money", value: 75 }]
 	},
 	speed: {
@@ -108,7 +108,7 @@ export const ACHIEVEMENTS = {
 	failure: {
 		title: "Error Prone",
 		description: "You couldn't even use a calculator?!",
-		condition: { value: "calculationFails", minimum: 10 },
+		condition: { value: "stats.calculationFails", minimum: 10 },
 		rewards: [{ type: "add", path: "money", value: 50 }],
 		hidden: true
 	},
@@ -498,7 +498,7 @@ export const TECH_TREE = {
 export const CHALLENGES = [
 	{
 		description: "Complete {n} calculation(s)",
-		requirements: [{ path: "calculations", minimum: "n" }],
+		requirements: [{ path: "stats.calculations", minimum: "n" }],
 		variables: { n: { type: "range", min: 1, max: 50 } },
 		rewards: [
 			[{ type: "add", path: "money", value: 75 }],
@@ -510,7 +510,7 @@ export const CHALLENGES = [
 	},
 	{
 		description: "Reach a result over {n}",
-		requirements: [{ path: "currentResult", minimum: "n" }],
+		requirements: [{ path: "stats.currentResult", minimum: "n" }],
 		variables: { n: { type: "range", min: 1, max: 10000 } },
 		rewards: [
 			[{ type: "add", path: "money", value: 100 }],
@@ -522,7 +522,7 @@ export const CHALLENGES = [
 	},
 	{
 		description: "Calculate exactly {n}",
-		requirements: [{ path: "currentResult", exactly: "n" }],
+		requirements: [{ path: "stats.currentResult", exactly: "n" }],
 		variables: { n: { type: "range", min: 1, max: 2000 } },
 		rewards: [
 			[{ type: "add", path: "money", value: 150 }],
@@ -534,7 +534,7 @@ export const CHALLENGES = [
 	},
 	{
 		description: "Trigger an error {n} time(s)",
-		requirements: [{ path: "calculationFails", minimum: "n" }],
+		requirements: [{ path: "stats.calculationFails", minimum: "n" }],
 		variables: { n: { type: "range", min: 1, max: 10 } },
 		rewards: [
 			[{ type: "add", path: "money", value: 50 }],

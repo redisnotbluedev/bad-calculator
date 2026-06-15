@@ -20,12 +20,17 @@ export const state = new Proxy(JSON.parse(localStorage.getItem("userSessionData"
 		shuffleTime: 1000,
 		tabLoadTime: 2000,
 	},
-	calculations: 0,
-	calculationFails: 0,
-	currentResult: 0,
-	moneySpent: 0,
-	gambleFails: 0,
-	gambleRounds: 0,
+	stats: {
+		calculations: 0,
+		calculationFails: 0,
+		currentResult: 0, // unimplemented
+		moneySpent: 0, // unimplemented
+		gambleFails: 0,
+		gambleRounds: 0, // unimplemented
+		challenges: 0,
+		challengeMoney: 0,
+		challengeXp: 0
+	},
 	clippy: false,
 	start: new Date()
 }), (_, value) => {

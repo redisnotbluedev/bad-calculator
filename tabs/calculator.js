@@ -100,11 +100,11 @@ buttons.addEventListener("click", e => {
 	if (e.target.tagName !== "BUTTON" || isAnimating) return;
 	switch (e.target.dataset.special) {
 		case "submit": {
-			state.calculations += 1;
+			state.stats.calculations += 1;
 			expression = ce.parse(finishExpression()).latex;
 			if (expression.includes("\\error")) {
 				expression = "\\mathrm{Error}";
-				state.calculationFails += 1;
+				state.stats.calculationFails += 1;
 			}
 			katex.render(expression, display, { throwOnError: false });
 			break;

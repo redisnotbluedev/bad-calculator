@@ -69,7 +69,7 @@ function spinWheel() {
 		entry.innerHTML = `You won <b style="color:${result.prize.color}">${result.prize.name}!</b>`;
 		logs.prepend(entry);
 
-		if (result.prize.value.type === "none") state.gambleFails++;
+		if (result.prize.value.type === "none") state.stats.gambleFails++;
 
 		if (result.prize.value.path === "gamble.lootbox") {
 			const lootboxOverlay = document.getElementById("lootbox");
