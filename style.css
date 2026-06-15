@@ -1,5 +1,6 @@
 :root {
 	font-family: sans-serif;
+	transition: opacity 1s ease-in;
 	--border-color: #FFFFFF1A;
 	--bg-color: #000C;
 }
@@ -894,6 +895,7 @@ main {
 		width: 16rem;
 		overflow: hidden;
 		transition: height 0.3s ease-out;
+		text-align: center;
 
 		& > button {
 			border-radius: 50%;

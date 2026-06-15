@@ -1,8 +1,5 @@
 const indicator = document.getElementById("loading-overlay");
-let saveTimeoutId = null;
-let listeners = [];
-
-export const state = new Proxy(JSON.parse(localStorage.getItem("userSessionData") || JSON.stringify({
+const defaultState = {
 	money: 100,
 	xp: 0,
 	spins: 0,
@@ -31,9 +28,12 @@ export const state = new Proxy(JSON.parse(localStorage.getItem("userSessionData"
 		challengeMoney: 0,
 		challengeXp: 0
 	},
-	clippy: false,
-	start: new Date()
-}), (_, value) => {
+	clippy: false
+}
+let saveTimeoutId = null;
+let listeners = [];
+
+export let state = new Proxy(JSON.parse(localStorage.getItem("userSessionData") || JSON.stringify({ ...defaultState, start: new Date() }), (_, value) => {
 	return typeof value === "string" && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/.test(value) ? new Date(value) : value;
 }), {
 	get(target, property) {
@@ -75,6 +75,11 @@ export function save(showLoading = true) {
 			saveTimeoutId = null;
 		}, state.upgrades.tabLoadTime);
 	}
+}
+
+export function prestige() {
+	state = { ...defaultState, start: state.start };
+	save(false);
 }
 
 save(false)
