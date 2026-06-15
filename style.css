@@ -243,77 +243,6 @@ main {
 	}
 }
 
-.achievements {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, 4rem);
-
-	& > div {
-		height: 4rem;
-		padding: 0.5rem;
-		anchor-name: --achievement;
-		anchor-scope: --achievement;
-
-		& > img {
-			width: 48px;
-			height: 48px;
-			object-fit: contain;
-
-			&[src*=locked] {
-				opacity: 0.75;
-			}
-		}
-
-		&:hover {
-			opacity: 1;
-
-			& > div {
-				display: flex;
-			}
-		}
-
-		& > div {
-			display: none;
-			position: absolute;
-			position-anchor: --achievement;
-			bottom: anchor(top);
-			background: var(--bg-color);
-			border: palegoldenrod solid 3px;
-			border-radius: 0.5rem;
-			color: white;
-			padding: 0.5rem;
-			gap: 1rem;
-			align-items: center;
-
-			& > img {
-				width: 48px;
-				height: 48px;
-				flex-shrink: 0;
-				object-fit: contain;
-			}
-
-			& > hgroup {
-				text-align: left;
-				margin-left: auto;
-				margin-right: auto;
-
-				& > h1 {
-					margin: 0;
-					font-size: 1.2rem;
-					color: yellow;
-				}
-
-				& > p {
-					margin: 0;
-				}
-			}
-		}
-
-		&.purple > div > hgroup > h1 {
-			color: magenta;
-		}
-	}
-}
-
 .shop {
 	display: flex;
 	padding: 0;
@@ -866,6 +795,127 @@ main {
 				background: lightgrey;
 			}
 		}
+	}
+}
+
+.achievements {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, 4rem);
+
+	& > div {
+		height: 4rem;
+		padding: 0.5rem;
+		anchor-name: --achievement;
+		anchor-scope: --achievement;
+
+		& > img {
+			width: 48px;
+			height: 48px;
+			object-fit: contain;
+
+			&[src*=locked] {
+				opacity: 0.75;
+			}
+		}
+
+		&:hover {
+			opacity: 1;
+
+			& > div {
+				display: flex;
+			}
+		}
+
+		& > div {
+			display: none;
+			position: absolute;
+			position-anchor: --achievement;
+			bottom: anchor(top);
+			background: var(--bg-color);
+			border: palegoldenrod solid 3px;
+			border-radius: 0.5rem;
+			color: white;
+			padding: 0.5rem;
+			gap: 1rem;
+			align-items: center;
+
+			& > img {
+				width: 48px;
+				height: 48px;
+				flex-shrink: 0;
+				object-fit: contain;
+			}
+
+			& > hgroup {
+				text-align: left;
+				margin-left: auto;
+				margin-right: auto;
+
+				& > h1 {
+					margin: 0;
+					font-size: 1.2rem;
+					color: yellow;
+				}
+
+				& > p {
+					margin: 0;
+				}
+			}
+		}
+
+		&.purple > div > hgroup > h1 {
+			color: magenta;
+		}
+	}
+}
+
+.prestige {
+	color: white;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1rem;
+	interpolate-size: allow-keywords;
+
+	& > .disclaimer {
+		flex: 1;
+		border: 1px solid var(--border-color);
+		border-radius: 1rem;
+		padding: 1rem;
+	}
+
+	& > label > input {
+		accent-color: white;
+		margin-right: 0.5rem;
+	}
+
+	& > .button {
+		height: 0;
+		width: 16rem;
+		overflow: hidden;
+		transition: height 0.3s ease-out;
+
+		& > button {
+			border-radius: 50%;
+			text-transform: uppercase;
+			background: #C70000;
+			color: white;
+			cursor: pointer;
+			font-size: 2rem;
+			font-weight: bold;
+			border: none;
+			padding: 0;
+			width: 100%;
+			height: 100%;
+
+			&:hover {
+				background: indianred;
+			}
+		}
+	}
+
+	& > label:has(input:checked) + div {
+		height: 16rem;
 	}
 }
 
