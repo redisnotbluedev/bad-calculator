@@ -441,7 +441,10 @@ export const TECH_TREE = {
 		cost: { type: "add", path: "xp", value: -550 },
 		parents: ["unlockPercent", "shuffle5s"],
 		parentMergePolicy: "and",
-		rewards: [{ type: "push", path: "buttons", value: "(" }]
+		rewards: [
+			{ type: "push", path: "buttons", value: "(" },
+			{ type: "push", path: "buttons", value: ")" }
+		]
 	},
 	// Layer 8
 	heavyWheel2: {

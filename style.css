@@ -213,6 +213,10 @@ main {
 		display: flex;
 		align-items: center;
 		overflow-x: auto;
+
+		& .cursor {
+			animation: blink 1s step-end infinite;
+		}
 	}
 
 	& > .buttons {
@@ -230,7 +234,7 @@ main {
 			border-radius: 0.5rem;
 			cursor: pointer;
 			font-size: 50px;
-			transition: transform 0.5s ease-in-out;
+			transition: transform 0.2s ease-in-out;
 
 			&:hover {
 				background: #D1E3F0;
@@ -712,6 +716,15 @@ main {
 				height: 48px;
 				width: 48px;
 
+				&.unownable {
+					opacity: 0.7;
+				}
+
+				&.owned {
+					box-shadow: 0 0 10px 3px palegreen;
+					border-radius: 50%;
+				}
+
 				& > img {
 					height: 48px;
 					width: 48px;
@@ -872,12 +885,13 @@ dl {
 		text-align: right;
 
 		& > span {
-			white-space: pre;
+			text-wrap: nowrap;
 		}
 	}
 }
 
 @keyframes l1 {to{transform: rotate(.5turn)}}
+@keyframes blink { 50% { opacity: 0; } }
 @keyframes violent-shake {
 	10%, 90% { transform: translate3d(-3px, 0, 0) rotate(-2deg); }
 	30%, 70% { transform: translate3d(-6px, 3px, 0) rotate(-4deg); scale: 1.1; }

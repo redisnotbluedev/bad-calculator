@@ -32,7 +32,10 @@ export function dispatchStateSetter(value, state) {
 			break;
 		}
 		case "add": {
-			updatePath(value.path, state, v => v + value.value);
+			updatePath(value.path, state, v => {
+				const result = state.upgrades[`${value.path}Multiplier`] !== undefined && value.value > 0 ? v + value.value * state.upgrades[`${value.path}Multiplier`] : v + value.value;
+				return Number.isInteger(v) ? Math.floor(result) : result;
+			});
 			break;
 		}
 		case "multiply": {

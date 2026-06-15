@@ -9,6 +9,7 @@ const buttons = document.getElementById("buttons");
 let expression = "";
 let shuffleInterval;
 let isAnimating = false;
+let oldButtons = state.buttons;
 
 function getOptimalGrid(buttonCount, containerWidth, containerHeight) {
 	let bestCols = 1;
@@ -35,9 +36,10 @@ function updateGrid() {
 	buttons.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
 }
 
-function finishExpression() {
+function finishExpression(limit = Infinity) {
 	const pairs = { "{": "}", "[": "]", "(": ")" };
 	const stack = [];
+
 	for (let char of expression) {
 		if (pairs[char]) {
 			stack.push(pairs[char]);
@@ -45,7 +47,8 @@ function finishExpression() {
 			if (stack.at(-1) === char) stack.pop();
 		}
 	}
-	return expression + stack.reverse().join("");
+
+	return expression + stack.reverse().slice(0, limit).join("");;
 }
 
 function shuffleButtons() {
@@ -96,6 +99,16 @@ function shuffleButtons() {
 	}, 500);
 }
 
+function render() {
+	const full = finishExpression();
+	const withPlaceholder = expression + "\x00" + full.slice(expression.length);
+	const latex = withPlaceholder
+		.replaceAll(/\{(.*?)\}/g, (_, g) => `{(${g})}`)
+		.replaceAll("Nothing", "\\mathrm{Nothing}")
+		.replace("\x00", "\\htmlClass{cursor}{|}");
+	katex.render(latex, display, { trust: true, throwOnError: false });
+}
+
 buttons.addEventListener("click", e => {
 	if (e.target.tagName !== "BUTTON" || isAnimating) return;
 	switch (e.target.dataset.special) {
@@ -103,7 +116,7 @@ buttons.addEventListener("click", e => {
 			state.stats.calculations++;
 			const result = ce.parse(finishExpression());
 			state.stats.currentResult = result.N().valueOf(); // really dumb function name btw
-			expression = result.latex;
+			expression = result.latex.replaceAll("Nothing", "\\mathrm{Nothing}");
 			if (expression.includes("\\error")) {
 				expression = "\\mathrm{Error}";
 				state.stats.calculationFails++;
@@ -116,9 +129,19 @@ buttons.addEventListener("click", e => {
 			display.innerHTML = "";
 			break;
 		}
+		case "delete": {
+			expression = expression.slice(0, -1);
+			render()
+			break;
+		}
+		case "close": {
+			expression = finishExpression(1);
+			render();
+			break;
+		}
 		default: {
 			expression += e.target.dataset.input;
-			katex.render(finishExpression(), display, { throwOnError: false });
+			render();
 			break;
 		}
 	}
@@ -126,19 +149,24 @@ buttons.addEventListener("click", e => {
 
 function loadButtons() {
 	if (isAnimating) return;
-	buttons.innerHTML = "";
-	katex.render(String(state.stats.currentResult), display, { throwOnError: false });
-	Object.entries(BUTTONS).forEach(([label, data]) => {
-		if (state.buttons.includes(label)) {
-			const button = document.createElement("button");
-			if (data.type == "simple") { button.dataset.input = data.value; }
-			if (data.type == "special") { button.dataset.special = data.value; }
-			button.innerText = label;
-			buttons.appendChild(button);
-		}
-	});
-	updateGrid();
+
+	if (state.buttons !== oldButtons) {
+		oldButtons = state.buttons;
+		buttons.innerHTML = "";
+		Object.entries(BUTTONS).forEach(([label, data]) => {
+			if (state.buttons.includes(label)) {
+				const button = document.createElement("button");
+				if (data.type == "simple") { button.dataset.input = data.value; }
+				if (data.type == "special") { button.dataset.special = data.value; }
+				button.innerText = label;
+				buttons.appendChild(button);
+			}
+		});
+		updateGrid();
+	}
+
 	clearInterval(shuffleInterval);
+	katex.render(String(state.stats.currentResult), display, { throwOnError: false });
 	shuffleInterval = setInterval(shuffleButtons, state.upgrades.shuffleTime);
 }
 

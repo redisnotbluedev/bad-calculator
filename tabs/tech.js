@@ -50,11 +50,14 @@ function render() {
 
 		node.innerHTML = `<img src="${data.icon}">${data.level ? `<span>${data.level}</span>` : ""}`;
 		node.style.anchorName = `--${id}`;
+		const ownage = new Set(state.owned);
+		const canBuy = data.parents.length === 0 || data.parents[data.parentMergePolicy === "and" ? "every" : "some"](p => ownage.has(`tech.${p}`));
+		node.classList.toggle("unownable", !canBuy);
+		node.classList.toggle("owned", ownage.has(`tech.${id}`));
 		if (id.startsWith("empty")) node.hidden = true;
 		const handleClick = e => {
 			e.stopPropagation();
 			const button = document.createElement("button");
-			const canBuy = (data.parentMergePolicy === "and" ? data.parents.every : data.parents.some)(p => state.owned.includes(`tech.${p}`));
 			const canAfford = reducePath(data.cost.path, state) >= (-1 * data.cost.value);
 
 			if (id !== selectedNode) {
@@ -78,7 +81,7 @@ function render() {
 				<dt>Requires</dt>
 				<dd>${(data.parents).map(n => {
 					const node = TECH_TREE[n];
-					return `<span ${canBuy || state.owned.includes(`tech.${n}`) ? "" : `style="color:indianred"`}>
+					return `<span ${canBuy || ownage.has(`tech.${n}`) ? "" : `style="color:indianred"`}>
 								${node.name}${node.level ? " " + node.level : ""}
 							</span>`;
 				}).join(", ") || "Nothing"}
@@ -86,12 +89,14 @@ function render() {
 				<dd>${data.rewards.map(r => serializeStateSetter(r, state)).join(", ")}</dd>
 			</dl>`;
 
-			if (canBuy && !state.owned.includes(`tech.${id}`)) {
+			if (canBuy && !ownage.has(`tech.${id}`)) {
 				button.innerText = "Unlock";
 				if (!canAfford) {
 					button.disabled = true;
+					console.log("can buy, can't afford, unowned")
 				}
 				else {
+					console.log("can buy, can afford, unowned")
 					button.addEventListener("click", () => {
 						dispatchStateSetter(data.cost, state);
 						data.rewards.forEach(r => dispatchStateSetter(r, state));
@@ -103,7 +108,9 @@ function render() {
 				button.className = "locked";
 				button.innerText = "Locked";
 				button.disabled = true;
+				console.log("can't buy, may be able to afford, unowned")
 			} else {
+				console.log("owned")
 				button.className = "owned";
 				button.innerText = "Unlocked";
 				button.disabled = true;
