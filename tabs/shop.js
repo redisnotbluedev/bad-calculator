@@ -41,6 +41,7 @@ function renderShop() {
 
 			button.addEventListener("click", () => {
 				if (canBuy) {
+					if (data.cost.path === "money") state.stats.moneySpent -= data.cost.value;
 					dispatchStateSetter(data.cost, state);
 					state.owned.push(`shop.${category}.${id}`);
 					dispatchStateSetter(data.value, state);

@@ -23,10 +23,10 @@ export const state = new Proxy(JSON.parse(localStorage.getItem("userSessionData"
 	stats: {
 		calculations: 0,
 		calculationFails: 0,
-		currentResult: 0, // unimplemented
-		moneySpent: 0, // unimplemented
+		currentResult: 0,
+		moneySpent: 0,
 		gambleFails: 0,
-		gambleRounds: 0, // unimplemented
+		gambleRounds: 0,
 		challenges: 0,
 		challengeMoney: 0,
 		challengeXp: 0

@@ -100,11 +100,13 @@ buttons.addEventListener("click", e => {
 	if (e.target.tagName !== "BUTTON" || isAnimating) return;
 	switch (e.target.dataset.special) {
 		case "submit": {
-			state.stats.calculations += 1;
-			expression = ce.parse(finishExpression()).latex;
+			state.stats.calculations++;
+			const result = ce.parse(finishExpression());
+			state.stats.currentResult = result.N().valueOf(); // really dumb function name btw
+			expression = result.latex;
 			if (expression.includes("\\error")) {
 				expression = "\\mathrm{Error}";
-				state.stats.calculationFails += 1;
+				state.stats.calculationFails++;
 			}
 			katex.render(expression, display, { throwOnError: false });
 			break;
@@ -125,6 +127,7 @@ buttons.addEventListener("click", e => {
 function loadButtons() {
 	if (isAnimating) return;
 	buttons.innerHTML = "";
+	katex.render(String(state.stats.currentResult), display, { throwOnError: false });
 	Object.entries(BUTTONS).forEach(([label, data]) => {
 		if (state.buttons.includes(label)) {
 			const button = document.createElement("button");
@@ -135,14 +138,11 @@ function loadButtons() {
 		}
 	});
 	updateGrid();
+	clearInterval(shuffleInterval);
+	shuffleInterval = setInterval(shuffleButtons, state.upgrades.shuffleTime);
 }
 
 loadButtons();
 listen(loadButtons);
 window.addEventListener("resize", updateGrid);
 shuffleInterval = setInterval(shuffleButtons, state.upgrades.shuffleTime);
-
-export function updateShuffleInterval() {
-	clearInterval(shuffleInterval);
-	shuffleInterval = setInterval(shuffleButtons, state.upgrades.shuffleTime);
-}

@@ -80,7 +80,7 @@ function render() {
 
 		if (progress === 100) {
 			state.challenges.splice(i, 1);
-			state.stats.challenges += 1;
+			state.stats.challenges++;
 			c.rewards.forEach(r => {
 				if (r.path === "xp") state.stats.challengeXp += r.value;
 				if (r.path === "money") state.stats.challengeMoney += r.value;

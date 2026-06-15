@@ -37,7 +37,7 @@ function determineWinningPrize() {
 function spinWheel() {
 	if (state.spins <= 0) return;
 	state.spins -= 1;
-	state.gambleSpins++;
+	state.stats.gambleRounds++;
 	spinButton.disabled = true;
 
 	const result = determineWinningPrize();
@@ -51,7 +51,7 @@ function spinWheel() {
 	const sliceCenterPercent = ((accumulatedWeight + (result.prize.weight / 2)) / totalWeight) * 100;
 	const sliceCenterDegrees = (sliceCenterPercent / 100) * 360;
 	const targetDegrees = (360 - sliceCenterDegrees + 90) % 360;
-	const extraSpins = state.upgrades.gambleSpins * 360;
+	const extraSpins = state.upgrades.rotations * 360;
 
 	const currentHeading = currentRotation % 360;
 	let degreesToMove = targetDegrees - currentHeading;
