@@ -28,7 +28,7 @@ function getOptimalGrid(buttonCount, containerWidth, containerHeight) {
 
 function updateGrid() {
 	const cols = getOptimalGrid(
-		buttons.children.length,
+		buttons.childElementCount,
 		buttons.offsetWidth,
 		buttons.offsetHeight
 	);

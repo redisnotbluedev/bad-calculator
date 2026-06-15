@@ -54,7 +54,7 @@ function render() {
 		const handleClick = e => {
 			e.stopPropagation();
 			const button = document.createElement("button");
-			const canBuy = data.parents.every(p => state.owned.includes(`tech.${p}`));
+			const canBuy = (data.parentMergePolicy === "and" ? data.parents.every : data.parents.some)(p => state.owned.includes(`tech.${p}`));
 			const canAfford = reducePath(data.cost.path, state) >= (-1 * data.cost.value);
 
 			if (id !== selectedNode) {
@@ -78,7 +78,9 @@ function render() {
 				<dt>Requires</dt>
 				<dd>${(data.parents).map(n => {
 					const node = TECH_TREE[n];
-					return `<span ${state.owned.includes(`tech.${n}`) ? "" : `style="color:indianred"`}>${node.name}${node.level ? " " + node.level : ""}</span>`;
+					return `<span ${canBuy || state.owned.includes(`tech.${n}`) ? "" : `style="color:indianred"`}>
+								${node.name}${node.level ? " " + node.level : ""}
+							</span>`;
 				}).join(", ") || "Nothing"}
 				<dt>Effect</dt>
 				<dd>${data.rewards.map(r => serializeStateSetter(r, state)).join(", ")}</dd>

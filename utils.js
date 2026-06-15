@@ -58,7 +58,7 @@ export function dispatchStateSetter(value, state) {
 export function serializeStateSetter(setter, state) {
 	if (setter.type === "none") return "Nothing";
 
-	const stat = toTitleCase(setter.path.replaceAll("upgrades.", "").replaceAll(/[A-Z]/g, m => " " + m.toLowerCase())).replaceAll(/xp/gi, "XP");
+	const stat = toTitleCase(setter.path.replaceAll("upgrades.", "").replaceAll(/[A-Z]/g, m => " " + m)).replaceAll(/xp/gi, "XP");
 	let value = setter.value;
 	if (value === true) value = "On";
 	if (value === false) value = "Off";
@@ -68,6 +68,7 @@ export function serializeStateSetter(setter, state) {
 	if (setter.type === "set") return `${stat} → ${value}`;
 	if (setter.type === "push") return `Get ${value}`;
 	if (setter.type === "pop") return `Lose ${value}`;
+	console.error(`Unknown state operation ${value.type}!`);
 }
 
 export function toTitleCase(str) {
@@ -88,4 +89,26 @@ export function toTitleCase(str) {
 			return word;
 		})
 		.join(" ");
+}
+
+export function getRandomElement(array) {
+	return array[Math.floor(Math.random() * array.length)];
+}
+
+export function delta(before, after) {
+	if (typeof after === 'number') return after - before
+	if (Array.isArray(after)) return after.filter(x => !before.includes(x))
+	if (typeof after === 'string') return after !== before ? after : null
+	// objects: compare keys
+	const result = {};
+	for (const [k, v] of Object.entries(after)) {
+		if (typeof v === 'object' && v !== null && !Array.isArray(v) && typeof before[k] === 'object' && before[k] !== null) {
+			const nested = delta(before[k], v);
+			if (Object.keys(nested).length > 0) result[k] = nested;
+		} else if (before[k] !== v) {
+			result[k] = v;
+		}
+	}
+	return result;
+
 }

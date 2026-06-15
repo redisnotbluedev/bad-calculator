@@ -1,3 +1,5 @@
+import { state, listen } from "./state.js";
+
 export const BUTTONS = {
 	"1":  { type: "simple",  value: "1" },
 	"2":  { type: "simple",  value: "2" },
@@ -233,9 +235,9 @@ export const WHEEL = [
 	},
 	{
 		name: "Nothing",
-		weight: 21,
+		weight: state.upgrades.nothingWeight,
 		color: "#95a5a6",
-		value: { type: "none", path: null, value: null }
+		value: { type: "none" }
 	},
 	{
 		name: "Extra Spin",
@@ -492,3 +494,59 @@ export const TECH_TREE = {
 		rewards: [{ type: "set", path: "upgrades.shuffleTime", value: 30000 }]
 	}
 };
+
+export const CHALLENGES = [
+	{
+		description: "Complete {n} calculation(s)",
+		requirements: [{ path: "calculations", minimum: "n" }],
+		variables: { n: { type: "range", min: 1, max: 50 } },
+		rewards: [
+			[{ type: "add", path: "money", value: 75 }],
+			[{ type: "add", path: "money", value: 150 }],
+			[{ type: "add", path: "xp", value: 200 }],
+			[{ type: "add", path: "xp", value: 400 }]
+		],
+		rewardBase: "n"
+	},
+	{
+		description: "Reach a result over {n}",
+		requirements: [{ path: "currentResult", minimum: "n" }],
+		variables: { n: { type: "range", min: 1, max: 10000 } },
+		rewards: [
+			[{ type: "add", path: "money", value: 100 }],
+			[{ type: "add", path: "money", value: 250 }],
+			[{ type: "add", path: "xp", value: 300 }],
+			[{ type: "add", path: "xp", value: 500 }]
+		],
+		rewardBase: "n"
+	},
+	{
+		description: "Calculate exactly {n}",
+		requirements: [{ path: "currentResult", exactly: "n" }],
+		variables: { n: { type: "range", min: 1, max: 2000 } },
+		rewards: [
+			[{ type: "add", path: "money", value: 150 }],
+			[{ type: "add", path: "money", value: 300 }],
+			[{ type: "add", path: "xp", value: 350 }],
+			[{ type: "add", path: "xp", value: 550 }]
+		],
+		rewardBase: "n"
+	},
+	{
+		description: "Trigger an error {n} time(s)",
+		requirements: [{ path: "calculationFails", minimum: "n" }],
+		variables: { n: { type: "range", min: 1, max: 10 } },
+		rewards: [
+			[{ type: "add", path: "money", value: 50 }],
+			[{ type: "add", path: "money", value: 100 }],
+			[{ type: "add", path: "xp", value: 150 }],
+			[{ type: "add", path: "xp", value: 300 }]
+		],
+		rewardBase: "n"
+	}
+]
+
+listen(() => {
+	const index = WHEEL.findIndex(e => e.value.type === "none");
+	if (index !== -1) { WHEEL[index].weight = state.upgrades.nothingWeight; }
+});

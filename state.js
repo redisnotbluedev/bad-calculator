@@ -8,6 +8,7 @@ export const state = new Proxy(JSON.parse(localStorage.getItem("userSessionData"
 	spins: 0,
 	owned: [],
 	buttons: ["1", "+", "=", "AC"],
+	challenges: [],
 	achievements: [],
 	tabsVisited: ["calculator"],
 	upgrades: {
@@ -21,8 +22,9 @@ export const state = new Proxy(JSON.parse(localStorage.getItem("userSessionData"
 	},
 	calculations: 0,
 	calculationFails: 0,
+	currentResult: 0,
 	moneySpent: 0,
-	gambleFailStreak: 0,
+	gambleFails: 0,
 	gambleRounds: 0,
 	clippy: false,
 	start: new Date()

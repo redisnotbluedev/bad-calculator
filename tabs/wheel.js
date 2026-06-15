@@ -1,7 +1,7 @@
 import { WHEEL, LOOTBOXES } from "/data.js";
 import { state, listen } from "/state.js";
 import { moveTo } from "./tabs.js";
-import { dispatchStateSetter, toTitleCase } from "/utils.js";
+import { dispatchStateSetter, toTitleCase, getRandomElement } from "/utils.js";
 
 const wheel = document.getElementById("wheel");
 const spinButton = document.getElementById("spin");
@@ -37,7 +37,9 @@ function determineWinningPrize() {
 function spinWheel() {
 	if (state.spins <= 0) return;
 	state.spins -= 1;
+	state.gambleSpins++;
 	spinButton.disabled = true;
+
 	const result = determineWinningPrize();
 	const totalWeight = WHEEL.reduce((sum, prize) => sum + prize.weight, 0);
 
@@ -67,6 +69,8 @@ function spinWheel() {
 		entry.innerHTML = `You won <b style="color:${result.prize.color}">${result.prize.name}!</b>`;
 		logs.prepend(entry);
 
+		if (result.prize.value.type === "none") state.gambleFails++;
+
 		if (result.prize.value.path === "gamble.lootbox") {
 			const lootboxOverlay = document.getElementById("lootbox");
 			const lootboxImg = document.querySelector("#lootbox img");
@@ -77,7 +81,7 @@ function spinWheel() {
 
 			const box = result.prize.value.value;
 			const entries = Object.entries(LOOTBOXES[box]);
-			let [rewardId, rewardData] = entries[Math.floor(Math.random() * entries.length)];
+			let [rewardId, rewardData] = getRandomElement(entries);
 
 			if (state.owned.includes(`gamble.${box}.${rewardId}`) && rewardData.unique) {
 				rewardId = null;

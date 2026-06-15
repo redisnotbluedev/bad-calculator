@@ -1,6 +1,7 @@
 import "./tabs/tabs.js"
 import "./tabs/calculator.js"
 import "./tabs/shop.js"
+import "./tabs/challenges.js"
 import "./tabs/wheel.js"
 import "./tabs/tech.js"
 import "./tabs/achievements.js"
