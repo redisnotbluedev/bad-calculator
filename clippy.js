@@ -21,9 +21,10 @@ function showClippy() {
 		timeoutID = setTimeout(showClippy, Math.random() * 5000);
 	});
 	div.appendChild(button);
-	clippy.appendChild(div);
 	const image = document.createElement("img");
 	image.src = "/images/clippy.webp";
+	clippy.innerHTML = "";
+	clippy.appendChild(div);
 	clippy.appendChild(image);
 }
 

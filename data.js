@@ -569,7 +569,8 @@ export const CLIPPY = [
 	"I know where your MathBux are.",
 	"Nice button collection. Would be a shame if something happened to it.",
 	"Every calculation brings you closer to the end. Or further. Mostly further.",
-	"Maybe the real calculator was the friends we made along the way."
+	"Maybe the real calculator was the friends we made along the way.",
+	"[insert dialog]"
 ]
 
 listen(() => {

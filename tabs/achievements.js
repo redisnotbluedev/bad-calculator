@@ -7,12 +7,11 @@ const achievements = document.getElementById("achievements");
 
 listen(() => {
 	Object.entries(ACHIEVEMENTS).forEach(([id, data]) => {
-		if (state.achievements.includes(id)) return;
 		if (data.condition === "dummy") return;
-
 		const value = reducePath(data.condition.value, state)
 
 		if (value >= data.condition.minimum) {
+			if (state.achievements.includes(id)) return;
 			state.achievements.push(id);
 			toast("/images/trophy.jpg", data.title, data.description, data.hidden || false, () => moveTo("achievements"));
 			data.rewards.forEach(r => dispatchStateSetter(r, state));
