@@ -12,7 +12,7 @@ const defaultState = {
 		rotations: 5,
 		captchaSkipChance: 0.0,
 		shuffleTime: 1,
-		tabLoadTime: 0,
+		tabLoadTime: 1,
 	},
 	stats: {
 		calculations: 0,
