@@ -1,7 +1,7 @@
 const indicator = document.getElementById("loading-overlay");
 const defaultState = {
-	money: 10000,
-	xp: 10000,
+	money: 100,
+	xp: 0,
 	spins: 0,
 	buttons: ["1", "+", "=", "AC"],
 	tabsVisited: [],
