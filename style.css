@@ -797,73 +797,91 @@ main {
 }
 
 .achievements {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, 4rem);
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	color: white;
+
+	& > h1 {
+		margin: 0;
+		font-weight: normal;
+		font-size: 2rem;
+	}
 
 	& > div {
-		height: 4rem;
-		padding: 0.5rem;
-		anchor-name: --achievement;
-		anchor-scope: --achievement;
-
-		& > img {
-			width: 48px;
-			height: 48px;
-			object-fit: contain;
-
-			&[src*=locked] {
-				opacity: 0.75;
-			}
-		}
-
-		&:hover {
-			opacity: 1;
-
-			& > div {
-				display: flex;
-			}
-		}
+		flex: 1;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, 4rem);
 
 		& > div {
-			display: none;
-			position: absolute;
-			position-anchor: --achievement;
-			bottom: anchor(top);
-			background: var(--bg-color);
-			border: palegoldenrod solid 3px;
-			border-radius: 0.5rem;
-			color: white;
+			height: 4rem;
 			padding: 0.5rem;
-			gap: 1rem;
-			align-items: center;
+			anchor-name: --achievement;
+			anchor-scope: --achievement;
 
 			& > img {
 				width: 48px;
 				height: 48px;
-				flex-shrink: 0;
 				object-fit: contain;
-			}
 
-			& > hgroup {
-				text-align: left;
-				margin-left: auto;
-				margin-right: auto;
-
-				& > h1 {
-					margin: 0;
-					font-size: 1.2rem;
-					color: yellow;
-				}
-
-				& > p {
-					margin: 0;
+				&[src*=locked] {
+					opacity: 0.75;
 				}
 			}
-		}
 
-		&.purple > div > hgroup > h1 {
-			color: magenta;
+			&:hover {
+				opacity: 1;
+
+				& > div {
+					display: flex;
+				}
+			}
+
+			& > div {
+				display: none;
+				position: absolute;
+				position-anchor: --achievement;
+				bottom: anchor(top);
+				background: var(--bg-color);
+				border: palegoldenrod solid 3px;
+				border-radius: 0.5rem;
+				color: white;
+				padding: 0.5rem;
+				gap: 1rem;
+				align-items: center;
+
+				& > img {
+					width: 48px;
+					height: 48px;
+					flex-shrink: 0;
+					object-fit: contain;
+				}
+
+				& > hgroup {
+					text-align: left;
+					margin-left: auto;
+					margin-right: auto;
+
+					& > h1 {
+						margin: 0;
+						font-size: 1.2rem;
+						color: yellow;
+					}
+
+					& > p {
+						margin: 0;
+					}
+				}
+			}
+
+			&.purple > div > hgroup > h1 {
+				color: magenta;
+			}
 		}
+	}
+
+	& > dl {
+		flex: 1;
 	}
 }
 
