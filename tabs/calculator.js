@@ -167,10 +167,10 @@ function loadButtons() {
 
 	clearInterval(shuffleInterval);
 	katex.render(String(state.stats.currentResult), display, { throwOnError: false });
-	shuffleInterval = setInterval(shuffleButtons, state.upgrades.shuffleTime);
+	shuffleInterval = setInterval(shuffleButtons, state.upgrades.shuffleTime * 1000);
 }
 
 loadButtons();
 listen(loadButtons);
 window.addEventListener("resize", updateGrid);
-shuffleInterval = setInterval(shuffleButtons, state.upgrades.shuffleTime);
+shuffleInterval = setInterval(shuffleButtons, state.upgrades.shuffleTime * 1000);

@@ -14,8 +14,8 @@ const defaultState = {
 		nothingWeight: 23,
 		rotations: 5,
 		captchaSkipChance: 0.0,
-		shuffleTime: 1000,
-		tabLoadTime: 2000,
+		shuffleTime: 1,
+		tabLoadTime: 2,
 	},
 	stats: {
 		calculations: 0,
@@ -73,7 +73,7 @@ export function save(showLoading = true) {
 		saveTimeoutId = setTimeout(() => {
 			indicator.classList.toggle("hidden", true);
 			saveTimeoutId = null;
-		}, state.upgrades.tabLoadTime);
+		}, state.upgrades.tabLoadTime * 1000);
 	}
 }
 

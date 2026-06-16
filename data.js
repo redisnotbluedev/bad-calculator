@@ -338,7 +338,7 @@ export const TECH_TREE = {
 		description: "Buttons now shuffle every 2 seconds. A small mercy.",
 		cost: { type: "add", path: "xp", value: -200 },
 		parents: ["xpBoost1"],
-		rewards: [{ type: "set", path: "upgrades.shuffleTime", value: 2000 }]
+		rewards: [{ type: "set", path: "upgrades.shuffleTime", value: 2 }]
 	},
 	unlockMultiply: {
 		name: "Unlock ×",
@@ -365,7 +365,7 @@ export const TECH_TREE = {
 		cost: { type: "add", path: "xp", value: -350 },
 		parents: ["shuffle2s"],
 		parentMergePolicy: "and",
-		rewards: [{ type: "set", path: "upgrades.tabLoadTime", value: 500 }]
+		rewards: [{ type: "set", path: "upgrades.tabLoadTime", value: 0.5 }]
 	},
 	unlockDivide: {
 		name: "Unlock ÷",
@@ -404,7 +404,7 @@ export const TECH_TREE = {
 		cost: { type: "add", path: "xp", value: -1200 },
 		parents: ["premiumMember", "unlockDivide"],
 		parentMergePolicy: "and",
-		rewards: [{ type: "set", path: "upgrades.shuffleTime", value: 5000 }]
+		rewards: [{ type: "set", path: "upgrades.shuffleTime", value: 5 }]
 	},
 	unlockPercent: {
 		name: "Unlock %",
@@ -473,7 +473,7 @@ export const TECH_TREE = {
 		description: "Buttons shuffle every 15 seconds. Almost tolerable.",
 		cost: { type: "add", path: "xp", value: -3000 },
 		parents: ["captchaFilter2", "unlockParens"],
-		rewards: [{ type: "set", path: "upgrades.shuffleTime", value: 15000 }]
+		rewards: [{ type: "set", path: "upgrades.shuffleTime", value: 15 }]
 	},
 	// Layer 9
 	mathbux2: {
@@ -494,7 +494,7 @@ export const TECH_TREE = {
 		cost: { type: "add", path: "xp", value: -8000 },
 		parents: ["mathbux2"],
 		parentMergePolicy: "add",
-		rewards: [{ type: "set", path: "upgrades.shuffleTime", value: 30000 }]
+		rewards: [{ type: "set", path: "upgrades.shuffleTime", value: 30 }]
 	}
 };
 
@@ -547,6 +547,29 @@ export const CHALLENGES = [
 		],
 		rewardBase: "n"
 	}
+]
+
+export const CLIPPY = [
+	"It looks like you're trying to do math. Have you considered giving up?",
+	"It looks like you're trying to unlock a number. Have you tried spending MathBux?",
+	"I've been watching you. You press AC a lot.",
+	"You should spend more MathBux. For the economy.",
+	"Tip: pressing buttons faster makes the calculator go faster.",
+	"Tip: the Lucky Wheel is completely fair and not rigged in any way.",
+	"Tip: MathBux can be earned by spending MathBux.",
+	"Tip: 7 exists.",
+	"Tip: the shuffle interval can be upgraded.",
+	"Tip: AC stands for Absolutely Catastrophic.",
+	"I used to work in Excel. I don't want to talk about it.",
+	"This calculator was made in about 4 days. It shows.",
+	"The developer is very proud of the background animation.",
+	"Have you tried turning it off and on again? Your progress may or may not be lost.",
+	"I'm legally required to tell you the wheel is rigged.",
+	"Achievement locked: Touching Grass.",
+	"I know where your MathBux are.",
+	"Nice button collection. Would be a shame if something happened to it.",
+	"Every calculation brings you closer to the end. Or further. Mostly further.",
+	"Maybe the real calculator was the friends we made along the way."
 ]
 
 listen(() => {
