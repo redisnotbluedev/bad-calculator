@@ -53,9 +53,13 @@ function generateChallenge() {
 	});
 }
 
+let rendering = false;
 function render() {
+	if (rendering) return;
+	rendering = true;
 	[...Array(3)].forEach(generateChallenge);
 	challenges.innerHTML = "";
+	const completions = [];
 	state.challenges.forEach((c, i) => {
 		let progress = 0;
 		c.requirements.forEach(r => {
@@ -78,17 +82,20 @@ function render() {
 			</div>
 		</div>`;
 
-		if (progress === 100) {
-			state.challenges.splice(i, 1);
-			state.stats.challenges++;
-			c.rewards.forEach(r => {
-				if (r.path === "xp") state.stats.challengeXp += r.value;
-				if (r.path === "money") state.stats.challengeMoney += r.value;
-				dispatchStateSetter(r, state);
-			});
-			toast(null, "Challenge Complete!", c.description, false, () => moveTo("challenges"));
-		}
+		if (progress === 100) completions.push({ i, c });
 	});
+	rendering = false;
+	completions.reverse().forEach(({ i, c }) => {
+		state.challenges.splice(i, 1);
+		state.stats.challenges++;
+		c.rewards.forEach(r => {
+			if (r.path === "xp") state.stats.challengeXp += r.value;
+			if (r.path === "money") state.stats.challengeMoney += r.value;
+			dispatchStateSetter(r, state);
+		});
+		toast(null, "Challenge Complete!", c.description, false, () => moveTo("challenges"));
+	});
+
 	challenges.innerHTML += `<footer>
 		<h1>Your Stats</h1>
 		<dl>

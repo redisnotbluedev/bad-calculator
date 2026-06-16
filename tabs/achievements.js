@@ -21,8 +21,9 @@ listen(() => {
 	renderAchievements()
 });
 
-export function unlockAchievement() {
+export function unlockAchievement(id) {
 	if (state.achievements.includes(id)) return;
+	const data = ACHIEVEMENTS[id];
 	state.achievements.push(id);
 	toast("/images/trophy.jpg", data.title, data.description, data.hidden || false, () => moveTo("achievements"));
 	data.rewards.forEach(r => dispatchStateSetter(r, state));
