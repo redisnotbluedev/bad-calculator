@@ -1,5 +1,6 @@
 import { getRandomElement } from "./utils.js";
 import { state, listen } from "./state.js";
+import { CLIPPY } from "/data.js";
 
 const clippy = document.getElementById("clippy");
 let oldClippy = null;
