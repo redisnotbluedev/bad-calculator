@@ -307,12 +307,12 @@ export const TECH_TREE = {
 		rewards: [{ type: "add", path: "upgrades.xpMultiplier", value: 0.25 }]
 	},
 	unlockMinus: {
-		name: "Unlock −",
+		name: "Unlock -",
 		icon: "/images/maths.png",
 		description: "Subtraction. You're welcome.",
 		cost: { type: "add", path: "xp", value: -200 },
 		parents: ["clippy"],
-		rewards: [{ type: "push", path: "buttons", value: "−" }]
+		rewards: [{ type: "push", path: "buttons", value: "-" }]
 	},
 	// Layer 4
 	riggedWheel1: {
