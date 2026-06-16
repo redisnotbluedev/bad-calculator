@@ -506,7 +506,7 @@ export const CHALLENGES = [
 	},
 	{
 		description: "Reach a result over {n}",
-		requirements: [{ path: "stats.currentResult", minimum: "n" }],
+		requirements: [{ path: "stats.currentResult", minimum: "n", delta: false }],
 		variables: { n: { type: "range", min: 1, max: 10000 } },
 		rewards: [
 			[{ type: "add", path: "money", value: 100 }],
@@ -518,7 +518,7 @@ export const CHALLENGES = [
 	},
 	{
 		description: "Calculate exactly {n}",
-		requirements: [{ path: "stats.currentResult", exactly: "n" }],
+		requirements: [{ path: "stats.currentResult", exactly: "n", delta: false }],
 		variables: { n: { type: "range", min: 1, max: 2000 } },
 		rewards: [
 			[{ type: "add", path: "money", value: 150 }],

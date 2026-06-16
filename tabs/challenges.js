@@ -44,6 +44,7 @@ function generateChallenge() {
 		description: challenge.description.replaceAll(/\{(.*?)\}/g, (m, k) => k in variables ? variables[k] : m),
 		requirements: challenge.requirements.map(r => { return {
 			path: r.path,
+			delta: r.delta !== false,
 			...(r.minimum && { minimum: variables[r.minimum] }),
 			...(r.maximum && { maximum: variables[r.maximum] }),
 			...(r.exactly && { exactly: variables[r.exactly] }),
@@ -64,7 +65,9 @@ function render() {
 		let progress = 0;
 		c.requirements.forEach(r => {
 			const max = (100 / c.requirements.length);
-			const val = delta(c.snapshot[r.path], reducePath(r.path, state));
+			const val = r.delta !== false 
+				? delta(c.snapshot[r.path], reducePath(r.path, state))
+				: reducePath(r.path, state);
 
 			if (r.exactly) progress += val === r.exactly ? max : 0;
 			else if (r.minimum !== undefined && r.maximum !== undefined) progress += Math.min(val >= r.minimum && val <= r.maximum ? max : 0, max);

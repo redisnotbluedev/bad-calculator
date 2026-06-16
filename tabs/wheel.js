@@ -38,6 +38,7 @@ function determineWinningPrize() {
 
 function spinWheel() {
 	if (state.spins <= 0) return;
+	showCaptcha();
 	state.spins -= 1;
 	state.stats.gambleRounds++;
 	spinButton.disabled = true;
