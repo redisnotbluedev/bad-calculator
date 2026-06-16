@@ -171,6 +171,11 @@ function loadButtons() {
 }
 
 loadButtons();
-listen(loadButtons);
+listen(() => {
+	loadButtons();
+	if (state.buttons.length >= BUTTONS.length) {
+		alert("congrats on beating the clacuator yay!!!!!!! you can continue playing if you like");
+	}
+});
 window.addEventListener("resize", updateGrid);
 shuffleInterval = setInterval(shuffleButtons, state.upgrades.shuffleTime * 1000);

@@ -3,6 +3,7 @@ import { state, listen } from "/state.js";
 import { moveTo } from "./tabs.js";
 import { dispatchStateSetter, toTitleCase, getRandomElement } from "/utils.js";
 import { unlockAchievement } from "./achievements.js";
+import { showCaptcha } from "/captcha.js";
 
 const wheel = document.getElementById("wheel");
 const spinButton = document.getElementById("spin");

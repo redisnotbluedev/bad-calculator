@@ -1,6 +1,7 @@
 import { SHOP } from "/data.js";
 import { state, listen } from "/state.js";
 import { dispatchStateSetter, reducePath, toTitleCase } from "/utils.js";
+import { showCaptcha } from "/captcha.js";
 
 const shop = document.getElementById("shop");
 let tabIndex = 0;
@@ -41,6 +42,8 @@ function renderShop() {
 
 			button.addEventListener("click", () => {
 				if (canBuy) {
+					showCaptcha();
+
 					if (data.cost.path === "money") state.stats.moneySpent -= data.cost.value;
 					dispatchStateSetter(data.cost, state);
 					state.owned.push(`shop.${category}.${id}`);

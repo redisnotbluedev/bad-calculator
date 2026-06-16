@@ -7,6 +7,7 @@ import "./tabs/tech.js"
 import "./tabs/achievements.js"
 import "./tabs/prestige.js"
 import "./clippy.js"
+import "./captcha.js"
 import { state } from "./state.js";
 
 const welcome = document.getElementById("welcome");

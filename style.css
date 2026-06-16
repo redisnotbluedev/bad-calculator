@@ -3,6 +3,10 @@
 	transition: opacity 1s ease-in;
 	--border-color: #FFFFFF1A;
 	--bg-color: #000C;
+
+	&:has(.captcha:not([hidden])) {
+		pointer-events: none;
+	}
 }
 
 *, *::before, *::after {
@@ -1019,7 +1023,58 @@ dl {
 	}
 }
 
+.captcha {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: white;
+	padding: 1rem;
+	pointer-events: all;
+
+	& > div {
+		border: solid black 1px;
+		width: max-content;
+		border-radius: 0.5rem;
+		padding: 1rem;
+		display: flex;
+		justify-content: space-around;
+		margin: 0 auto;
+		gap: 0.5rem;
+		align-items: center;
+
+		& > input {
+			appearance: none;
+			border: solid 3px grey;
+			border-radius: 0.25rem;
+			width: 1.5rem;
+			height: 1.5rem;
+
+			&:checked {
+				display: none;
+
+				& + .loader {
+					display: block;
+				}
+			}
+		}
+
+		& > .loader {
+			display: none;
+			width: 1.8rem;
+			height: 1.8rem;
+			border-radius: 50%;
+			background:
+				radial-gradient(farthest-side, dodgerblue 94%, #0000) top/8px 8px no-repeat,
+				conic-gradient(#0000 30%, dodgerblue);
+			mask: radial-gradient(farthest-side, #0000 calc(100% - 8px),#000 0);
+			animation: l13 1s infinite linear;
+		}
+	}
+}
+
 @keyframes l1 {to{transform: rotate(.5turn)}}
+@keyframes l13{100%{transform: rotate(1turn)}}
 @keyframes blink { 50% { opacity: 0; } }
 @keyframes violent-shake {
 	10%, 90% { transform: translate3d(-3px, 0, 0) rotate(-2deg); }
