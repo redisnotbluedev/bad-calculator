@@ -1,4 +1,3 @@
-import { CLIPPY } from "./data.js";
 import { getRandomElement } from "./utils.js";
 import { state, listen } from "./state.js";
 
@@ -27,7 +26,6 @@ function showClippy() {
 	clippy.appendChild(image);
 }
 
-showClippy();
 listen(() => {
 	if (state.clippy === oldClippy) return;
 	oldClippy = state.clippy;

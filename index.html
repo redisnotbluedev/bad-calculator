@@ -82,6 +82,17 @@
 
 		<div class="clippy" id="clippy"></div>
 
+		<dialog class="welcome" id="welcome">
+			<h1>Welcome</h1>
+			<p>Welcome to <b>The Calculator!</b> Unfortunately, some of the buttons have gone missing, so you'll need to find them yourself.</p>
+			<ul>
+				<li>Use the left and right arrow buttons to navigate between several tabs which will help you on your journey.</li>
+				<li>To start you off, you've been gifted 100 MathBux. Your MathBux and XP balances are on the bottom, as well as the tab you're on.</li>
+				<li>Hint: start off by trying to calculate something.</li>
+			</ul>
+			<button onclick="this.closest('dialog').close()">Close</button>
+		</dialog>
+
 		<script src="/main.js" type="module"></script>
 	</body>
 </html>

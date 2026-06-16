@@ -4,7 +4,7 @@ const defaultState = {
 	xp: 10000,
 	spins: 0,
 	buttons: ["1", "+", "=", "AC"],
-	tabsVisited: ["calculator"],
+	tabsVisited: [],
 	upgrades: {
 		moneyMultiplier: 1.0,
 		xpMultiplier: 1.0,

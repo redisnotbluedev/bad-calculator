@@ -1001,6 +1001,24 @@ dl {
 	}
 }
 
+.welcome {
+	outline: none;
+	border-radius: 1rem;
+
+	&::backdrop {
+		background: var(--bg-color);
+	}
+
+	& > button {
+		width: 100%;
+		padding: 1rem;
+		border: none;
+		border-radius: 0.5rem;
+		outline: none;
+		cursor: pointer;
+	}
+}
+
 @keyframes l1 {to{transform: rotate(.5turn)}}
 @keyframes blink { 50% { opacity: 0; } }
 @keyframes violent-shake {
