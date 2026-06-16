@@ -9,8 +9,9 @@ listen(() => {
 	Object.entries(ACHIEVEMENTS).forEach(([id, data]) => {
 		if (data.condition === "dummy") return;
 		const value = reducePath(data.condition.value, state)
+		const unlocked = data.condition.minimum ? value >= data.condition.minimum : value == data.condition.exactly;
 
-		if (value >= data.condition.minimum) {
+		if (unlocked) {
 			if (state.achievements.includes(id)) return;
 			state.achievements.push(id);
 			toast("/images/trophy.jpg", data.title, data.description, data.hidden || false, () => moveTo("achievements"));
@@ -19,6 +20,13 @@ listen(() => {
 	});
 	renderAchievements()
 });
+
+export function unlockAchievement() {
+	if (state.achievements.includes(id)) return;
+	state.achievements.push(id);
+	toast("/images/trophy.jpg", data.title, data.description, data.hidden || false, () => moveTo("achievements"));
+	data.rewards.forEach(r => dispatchStateSetter(r, state));
+}
 
 function renderAchievements() {
 	achievements.innerHTML = "";

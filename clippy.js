@@ -7,7 +7,6 @@ let oldClippy = null;
 let timeoutID = null;
 
 function showClippy() {
-	if (!state.clippy) return;
 	if (timeoutID) {
 		clearTimeout(timeoutID);
 	}
@@ -32,5 +31,11 @@ showClippy();
 listen(() => {
 	if (state.clippy === oldClippy) return;
 	oldClippy = state.clippy;
-	showClippy();
+
+	if (state.clippy) {
+		showClippy();
+	} else {
+		clippy.innerHTML = "";
+		if (timeoutID) clearTimeout(timeoutID);
+	}
 });

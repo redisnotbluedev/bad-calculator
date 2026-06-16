@@ -2,6 +2,7 @@ import { WHEEL, LOOTBOXES } from "/data.js";
 import { state, listen } from "/state.js";
 import { moveTo } from "./tabs.js";
 import { dispatchStateSetter, toTitleCase, getRandomElement } from "/utils.js";
+import { unlockAchievement } from "./achievements.js";
 
 const wheel = document.getElementById("wheel");
 const spinButton = document.getElementById("spin");
@@ -72,6 +73,7 @@ function spinWheel() {
 		if (result.prize.value.type === "none") state.stats.gambleFails++;
 
 		if (result.prize.value.path === "gamble.lootbox") {
+			unlockAchievement("lucky");
 			const lootboxOverlay = document.getElementById("lootbox");
 			const lootboxImg = document.querySelector("#lootbox img");
 			const rewardCard = document.getElementById("reward-card");

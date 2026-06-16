@@ -3,10 +3,7 @@ const defaultState = {
 	money: 10000,
 	xp: 10000,
 	spins: 0,
-	owned: [],
 	buttons: ["1", "+", "=", "AC"],
-	challenges: [],
-	achievements: [],
 	tabsVisited: ["calculator"],
 	upgrades: {
 		moneyMultiplier: 1.0,
@@ -28,7 +25,11 @@ const defaultState = {
 		challengeMoney: 0,
 		challengeXp: 0
 	},
-	clippy: false
+	clippy: false,
+	// These are at the end only because they're annoying to scroll past
+	challenges: [],
+	achievements: [],
+	owned: [],
 }
 let saveTimeoutId = null;
 let listeners = [];

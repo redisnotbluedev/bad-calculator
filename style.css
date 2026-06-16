@@ -562,20 +562,18 @@ main {
 			position: absolute;
 			width: 200px;
 			height: 280px;
-			background: linear-gradient(135deg, #2c3e50, #0f171e);
-			border: 3px solid #f1c40f;
+			background: var(--bg-color);
 			border-radius: 1rem;
 			display: flex;
 			flex-direction: column;
 			align-items: center;
 			justify-content: space-between;
 			padding: 1.5rem;
-			box-sizing: border-box;
 			opacity: 0;
+			border: var(--tier-color) solid 3px;
 			transform: scale(0.2) rotate(-20deg);
 			pointer-events: none;
 			will-change: transform, opacity;
-			box-shadow: 0 0 40px rgba(241, 196, 15, 0.4);
 
 			&.reveal {
 				animation: card-snap 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
@@ -583,11 +581,8 @@ main {
 			}
 
 			& > .rarity {
-				font-size: 0.75rem;
-				font-weight: 900;
-				text-transform: uppercase;
+				font-size: 1.2rem;
 				letter-spacing: 2px;
-				background: rgba(0,0,0,0.5);
 				padding: 0.25rem 0.75rem;
 				border-radius: 1rem;
 			}

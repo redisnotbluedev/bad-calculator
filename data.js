@@ -88,7 +88,7 @@ export const ACHIEVEMENTS = {
 	},
 	lucky: {
 		title: "Lucky",
-		description: "Win something from the Lucky Wheel",
+		description: "Win a Loot Box from the Lucky Wheel",
 		condition: "dummy", // triggered by the Lucky Wheel logic
 		rewards: [{ type: "add", path: "money", value: 50 }]
 	},
@@ -97,13 +97,6 @@ export const ACHIEVEMENTS = {
 		description: "Get 'Nothing' on the Lucky Wheel 10 times",
 		condition: { value: "stats.gambleFails", "minimum": 10 },
 		rewards: [{ type: "add", path: "money", value: 75 }]
-	},
-	speed: {
-		title: "Speed Demon",
-		description: "Complete a calculation in under 2 seconds",
-		condition: "dummy", // triggered by calculator logic
-		rewards: [],
-		hidden: true
 	},
 	failure: {
 		title: "Error Prone",
@@ -115,20 +108,20 @@ export const ACHIEVEMENTS = {
 	tabs: {
 		title: "Tab Tourist",
 		description: "Visit every tab",
-		condition: { value: "tabsVisited.length", minimum: 5 },
+		condition: { value: "tabsVisited.length", minimum: 7 },
 		rewards: [{ type: "add", path: "money", value: 50 }]
 	},
 	special69: {
 		title: "Nice",
 		description: "Calculate the number 69",
-		condition: "dummy", // triggered by calculator logic
+		condition: { value: "stats.currentResult", exactly: 69 },
 		rewards: [{ type: "add", path: "money", value: 69 }],
 		hidden: true
 	},
 	special1337: {
 		title: "Elite",
 		description: "y0ur3 50 l337",
-		condition: "dummy", // triggered by calculator logic
+		condition: { value: "stats.currentResult", exactly: 1337 },
 		rewards: [
 			{ type: "add", path: "money", value: 337 },
 			{ type: "add", path: "xp", value: 100 }
