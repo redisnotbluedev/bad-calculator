@@ -27,7 +27,7 @@ function showClippy() {
 	clippy.appendChild(image);
 }
 
-listen(() => {
+function checkClippy() {
 	if (state.clippy === oldClippy) return;
 	oldClippy = state.clippy;
 
@@ -37,4 +37,7 @@ listen(() => {
 		clippy.innerHTML = "";
 		if (timeoutID) clearTimeout(timeoutID);
 	}
-});
+}
+
+listen(checkClippy);
+checkClippy();
